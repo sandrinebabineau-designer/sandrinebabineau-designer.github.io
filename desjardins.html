@@ -24,6 +24,7 @@
       --color-logo-confia: #ebf2ff;
 
       --fs-h1:      36px;
+      --fs-h2:      28px;
       --fs-body-lg: 20px;
       --fs-body:    18px;
       --fs-nav:     14px;
@@ -1675,6 +1676,7 @@
        RESPONSIVE — TABLETTE (≤1024px)
        ============================================= */
     @media (max-width: 1024px) {
+      :root { --fs-h1: 28px; --fs-h2: 22px; --fs-body-lg: 18px; }
       .nav__inner { padding: 20px var(--space-x); }
       .nav__links { display: none; }
       .nav__hamburger { display: flex; }
@@ -1719,7 +1721,7 @@
        RESPONSIVE — MOBILE (≤768px)
        ============================================= */
     @media (max-width: 768px) {
-      :root { --space-x: 20px; }
+      :root { --space-x: 20px; --fs-h1: 24px; --fs-h2: 20px; --fs-body-lg: 17px; --fs-body: 16px; }
       .nav__inner { padding: 16px var(--space-x); }
 
       /* ── Mise en contexte ── */

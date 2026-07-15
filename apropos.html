@@ -21,8 +21,10 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { overflow-x: hidden; }
 
     body {
+      max-width: 100%; overflow-x: hidden;
       background-color: var(--noir);
       color: var(--blanc);
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
@@ -353,6 +355,13 @@
         font-size: 48px;
         margin-bottom: 40px;
       }
+
+      /* Typographie iPad */
+      .bio-texte p { font-size: 18px; }
+      .section-galerie .titre-section { font-size: 30px; }
+      .section-galerie .desc-section { font-size: 18px; }
+      .titre-contact { font-size: 30px; }
+      .coordonnees { font-size: 18px; }
 
       .section-galerie { padding: 32px 32px 64px; }
 

@@ -81,7 +81,8 @@
       box-sizing: border-box;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { max-width: 100%; overflow-x: hidden; }
 
     body {
       background: var(--color-white);
@@ -860,9 +861,9 @@
 
     .legend {
       display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
     .legend__title {
@@ -1091,7 +1092,7 @@
       margin-bottom: 36px;
     }
 
-    .app-screen img { width: 100%; display: block; }
+    .app-screen img { width: 100%; display: block; border-radius: 20px; box-shadow: 0 8px 28px rgba(0,0,0,0.13); }
 
     .app__divider {
       height: 1.5px;
@@ -1230,37 +1231,43 @@
     }
 
     .project-card {
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
+      flex: 1;
+      border-radius: 15px;
+      box-shadow: 0 4px 2px rgba(0,0,0,0.10);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .project-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.13);
     }
 
     .project-card__img-wrapper {
       width: 100%;
-      aspect-ratio: 580 / 300;
+      height: 340px;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .project-card__img-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .project-card__body {
-      background: var(--color-white);
-      padding: 16px 16px 24px;
+      background: white;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       flex: 1;
+      gap: 16px;
     }
 
     .project-card__title {
@@ -1458,6 +1465,7 @@
       .hero__inner { flex-direction: column; gap: 28px; padding: 36px var(--space-section-x) 20px; }
       .hero__content { flex: 1; width: 100%; }
       .hero__image { display: none; }
+
       .hero__meta { flex-direction: column; gap: 16px; }
       .hero__meta-sep { display: none; }
       .hero__meta-item--chronologie,
@@ -1500,9 +1508,19 @@
       .principle { min-height: auto; padding: 16px; }
 
       /* Solutions table */
-      .solutions-table { font-size: 14px; overflow-x: auto; display: block; }
-      .solutions-table th, .solutions-table td { padding: 10px 8px; }
-      .solution-row__icon { width: 60px; height: 60px; }
+      .solutions-table { font-size: 13px; }
+      .solutions-table th, .solutions-table td { padding: 8px 6px; }
+      .solution-row__icon { width: 48px; height: 48px; }
+      .solutions-table__col-th { font-size: 13px; padding: 10px 6px; }
+      .solution-row__title { font-size: 13px; }
+      .solution-row__desc  { font-size: 13px; }
+
+      /* Légende — empilée verticalement */
+      .legend { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+      /* Typo méthodes de recherche */
+      .method-card__title { font-size: 17px; }
+      .method-card__desc  { font-size: 16px; }
 
       /* Benefits */
       .benefits { grid-template-columns: 1fr; }
@@ -1611,6 +1629,27 @@
     .reveal-delay-2 { transition-delay: 0.24s; }
     .reveal-delay-3 { transition-delay: 0.36s; }
     .reveal-delay-4 { transition-delay: 0.48s; }
+
+    /* Restaurer la transition rapide sur les cartes projet
+       (.reveal écrase celle de .project-card avec 0.65s — trop lent pour hover) */
+    .project-card {
+      transition: opacity 0.65s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.13);
+    }
+
+    /* Tags compacts dans les cartes projet — 2 lignes max, restent dans le bloc */
+    .project-card .tags {
+      gap: 8px;
+      padding: 0;
+    }
+    .project-card .tag {
+      font-size: 14px;
+      padding: 6px 12px;
+      max-width: 100%;
+    }
   </style>
   <style>
     .credit { text-align: center; padding: 20px 0 28px; font-size: 11px; color: rgba(0,0,0,0.5); letter-spacing: 0.04em; }
@@ -1964,7 +2003,7 @@
                  src="images/bodi/ecosysteme-bodi.svg"
                  alt="Écosystème BODI — relations entre l'aîné, le proche aidant et les services externes"
                  title="Cliquer pour zoomer" />
-            <p class="ecosystem__zoom-hint" id="ecosysteme-bodi-hint" style="margin-left: 520px;">Cliquer pour zoomer</p>
+            <p class="ecosystem__zoom-hint" id="ecosysteme-bodi-hint">Cliquer pour zoomer</p>
           </div>
 
         </div>
@@ -2048,6 +2087,7 @@
       <div class="section__inner">
         <h2 class="section__title" id="solutions-title" style="margin-bottom: 64px;">Solutions discartées</h2>
 
+        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
         <table class="solutions-table" role="table" aria-label="Évaluation des solutions discartées selon les principes de conception">
           <thead>
             <tr>
@@ -2106,6 +2146,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <div class="legend" role="list">
           <p class="legend__title">Légende</p>

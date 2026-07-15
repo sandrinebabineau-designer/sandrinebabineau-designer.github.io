@@ -828,9 +828,9 @@
 
     .solutions__legend-items {
       display: flex;
-      gap: 24px;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
     }
 
     .solutions__legend-item {
@@ -971,6 +971,7 @@
     .ajouts__body-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-auto-flow: dense;  /* remplit les trous : col droite commence à la ligne 1 */
       column-gap: 48px;
       row-gap: 16px;          /* espace fixe et uniforme entre chaque rangée */
       grid-auto-rows: 72px;   /* hauteur identique pour toutes les rangées */
@@ -991,6 +992,13 @@
     }
     .ajouts__body-grid::before { left: 0; right: calc(50% + 24px); }
     .ajouts__body-grid::after  { right: 0; left: calc(50% + 24px); }
+
+    .ajouts__mobile-label { display: none; }
+
+    /* Groupes — display:contents sur desktop = transparent pour la grille */
+    .ajouts__group { display: contents; }
+    .ajouts__group--left  .ajouts__item { grid-column: 1; }
+    .ajouts__group--right .ajouts__item { grid-column: 2; }
 
     .ajouts__item {
       position: relative;
@@ -1027,11 +1035,40 @@
     }
 
     @media (max-width: 768px) {
-      .ajouts__cols { grid-template-columns: 1fr; gap: 16px; }
-      .ajouts__body-grid { grid-template-columns: 1fr; }
+      .ajouts__cols { display: none; }
+      .ajouts__body-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        grid-auto-rows: unset;
+      }
+      .ajouts__body-grid::before,
       .ajouts__body-grid::after { display: none; }
-      .ajouts__body-grid::before { right: 0; }
-      .ajouts__body-grid .ajouts__item:nth-child(8) { padding-bottom: 8px; }
+      .ajouts__mobile-label {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: var(--color-white);
+        border-radius: 15px;
+        padding: 14px;
+        text-align: center;
+        margin-bottom: 12px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .ajouts__mobile-label--1 { order: 1; }
+      .ajouts__mobile-label--2 { order: 3; margin-top: 20px; }
+      /* Groupes : une grande carte blanche par section */
+      .ajouts__group--left  { order: 2; display: flex; flex-direction: column; background: var(--color-white); border-radius: 15px; overflow: hidden; width: 100%; }
+      .ajouts__group--right { order: 4; display: flex; flex-direction: column; background: var(--color-white); border-radius: 15px; overflow: hidden; width: 100%; }
+      .ajouts__item {
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        margin-bottom: 0;
+      }
+      .ajouts__group--left  .ajouts__item:last-child,
+      .ajouts__group--right .ajouts__item:last-child { border-bottom: none; }
     }
 
     /* =============================================
@@ -1299,8 +1336,11 @@
       .assistant-ia__text-block {
         position: static;
         width: 100%;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
+        border-left: 3px solid var(--color-ng-blue);
+        padding-left: 20px;
       }
+      .assistant-ia__text-block::before { display: none; }
       .assistant-ia__ecosysteme { min-height: auto; }
       .assistant-ia__schema-desc { position: static; width: 100%; margin-bottom: 16px; }
       .assistant-ia__schema-img { position: static; width: 100%; transform: none; }
@@ -1909,7 +1949,7 @@
        RESPONSIVE — TABLETTE (≤1024px)
        ============================================= */
     @media (max-width: 1024px) {
-      :root { --space-x: 36px; }
+      :root { --space-x: 36px; --fs-h1: 48px; --fs-h2: 30px; --fs-body-lg: 18px; }
 
       .side-nav { display: none; }
       .nav__links { display: none; }
@@ -2522,50 +2562,60 @@
         <!-- Corps : grille partagée pour l'alignement des rangées -->
         <div class="ajouts__body-grid reveal reveal-delay-1">
 
-          <!-- Rangée 1 -->
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-suivi.svg" alt="" /></div>
-            <p class="ajouts__item-text">Suivi personnalisé de la grossesse et du développement de l'enfant</p>
-          </div>
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-ia.svg" alt="" /></div>
-            <p class="ajouts__item-text">Assistant IA conversationnel</p>
+          <!-- Étiquette mobile col gauche (cachée sur desktop) -->
+          <div class="ajouts__mobile-label ajouts__mobile-label--1" aria-hidden="true">
+            <p class="ajouts__col-title">Naître et grandir</p>
+            <p class="ajouts__col-subtitle">Fonctionnalités actuelles</p>
           </div>
 
-          <!-- Rangée 2 -->
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-bibliotheque.svg" alt="" /></div>
-            <p class="ajouts__item-text">Bibliothèque de contenus validés par des experts</p>
-          </div>
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-quiz.svg" alt="" /></div>
-            <p class="ajouts__item-text">Questionnaire d'onboarding</p>
-          </div>
-
-          <!-- Rangée 3 -->
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-recherche.svg" alt="" /></div>
-            <p class="ajouts__item-text">Moteur de recherche</p>
-          </div>
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-communaute.svg" alt="" /></div>
-            <p class="ajouts__item-text">Onglet communauté</p>
-          </div>
-
-          <!-- Rangée 4 -->
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-favoris.svg" alt="" /></div>
-            <p class="ajouts__item-text">Favoris et contenus sauvegardés</p>
-          </div>
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-famille.svg" alt="" /></div>
-            <p class="ajouts__item-text">Espace familiale partagé</p>
+          <!-- Groupe gauche (display:contents sur desktop = transparent pour la grille) -->
+          <div class="ajouts__group ajouts__group--left">
+            <div class="ajouts__item ajouts__item--left">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-suivi.svg" alt="" /></div>
+              <p class="ajouts__item-text">Suivi personnalisé de la grossesse et du développement de l'enfant</p>
+            </div>
+            <div class="ajouts__item ajouts__item--left">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-bibliotheque.svg" alt="" /></div>
+              <p class="ajouts__item-text">Bibliothèque de contenus validés par des experts</p>
+            </div>
+            <div class="ajouts__item ajouts__item--left">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-recherche.svg" alt="" /></div>
+              <p class="ajouts__item-text">Moteur de recherche</p>
+            </div>
+            <div class="ajouts__item ajouts__item--left">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-favoris.svg" alt="" /></div>
+              <p class="ajouts__item-text">Favoris et contenus sauvegardés</p>
+            </div>
+            <div class="ajouts__item ajouts__item--left">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-enfants.svg" alt="" /></div>
+              <p class="ajouts__item-text">Gestion de plusieurs profils d'enfants</p>
+            </div>
           </div>
 
-          <!-- Rangée 5 (gauche seulement) -->
-          <div class="ajouts__item">
-            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-enfants.svg" alt="" /></div>
-            <p class="ajouts__item-text">Gestion de plusieurs profils d'enfants</p>
+          <!-- Groupe droite -->
+          <div class="ajouts__group ajouts__group--right">
+            <div class="ajouts__item ajouts__item--right">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-ia.svg" alt="" /></div>
+              <p class="ajouts__item-text">Assistant IA conversationnel</p>
+            </div>
+            <div class="ajouts__item ajouts__item--right">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-quiz.svg" alt="" /></div>
+              <p class="ajouts__item-text">Questionnaire d'onboarding</p>
+            </div>
+            <div class="ajouts__item ajouts__item--right">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-communaute.svg" alt="" /></div>
+              <p class="ajouts__item-text">Onglet communauté</p>
+            </div>
+            <div class="ajouts__item ajouts__item--right">
+              <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-famille.svg" alt="" /></div>
+              <p class="ajouts__item-text">Espace familiale partagé</p>
+            </div>
+          </div>
+
+          <!-- Étiquette mobile col droite (cachée sur desktop) -->
+          <div class="ajouts__mobile-label ajouts__mobile-label--2" aria-hidden="true">
+            <p class="ajouts__col-title">Naître et grandir <span class="ajouts__col-title-plus">+</span></p>
+            <p class="ajouts__col-subtitle">Fonctionnalités ajoutées</p>
           </div>
 
         </div>
