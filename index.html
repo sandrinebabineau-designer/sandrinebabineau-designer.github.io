@@ -109,7 +109,7 @@
     }
 
     .hero .sous-titre span {
-      font-style: normal; /* pas d'italique */
+      font-style: normal;
       transition: color 0.2s ease;
     }
 
@@ -299,10 +299,9 @@
       background-color: var(--orange);
       border-radius: 20px;
       padding: 48px;
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 48px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
       min-height: 320px;
     }
 
@@ -318,9 +317,9 @@
     }
 
     .carte-apropos .services {
-      text-align: right;
+      text-align: left;
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-      align-self: end;
+      align-self: start;
     }
 
     .carte-apropos .services h3 {
@@ -331,9 +330,19 @@
 
     .carte-apropos .services ul {
       list-style: none;
-      font-size: 20px;
-      font-weight: 300; /* light */
-      line-height: 1.8;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+
+    .carte-apropos .services ul li {
+      background: var(--blanc);
+      color: var(--orange);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 999px;
     }
 
     /* =============================================
@@ -666,15 +675,9 @@
       }
 
       .carte-apropos {
-        grid-template-columns: 1fr;
         padding: 32px;
         min-height: auto;
-        gap: 32px;
-      }
-
-      .carte-apropos .services {
-        text-align: left;
-        align-self: start;
+        gap: 24px;
       }
 
       /* Contact — empilé */
@@ -704,6 +707,26 @@
     }
 
   </style>
+  <style>
+    .credit {
+      text-align: center;
+      padding: 20px 0 28px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+    }
+    .credit span { font-weight: 500; color: rgba(255,255,255,0.75); }
+  </style>
+
+  <!-- Meta tags OpenGraph (partage sur réseaux sociaux) -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Sandrine Babineau — Designer UX/UI" />
+  <meta property="og:description" content="Portfolio de Sandrine Babineau, designer UX/UI finissante à la maîtrise en design d'interaction." />
+  <meta property="og:image"       content="https://sandrinebabineau-designer.github.io/images/og-image.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="Sandrine Babineau — Designer UX/UI" />
+  <meta name="twitter:description" content="Portfolio de Sandrine Babineau, designer UX/UI finissante à la maîtrise en design d'interaction." />
+  <meta name="twitter:image"      content="https://sandrinebabineau-designer.github.io/images/og-image.png" />
 </head>
 
 <body>
@@ -741,15 +764,13 @@
     <!-- Texte de présentation -->
     <div class="bio reveal reveal-delay-1">
       <p class="accroche">
-        <strong>Designer UX/UI</strong> avec la passion et la mission
-        de créer des produits numériques qui savent simplifier la vie
-        de tous,<br><br>
+        <strong>Designer UX/UI</strong> avec la mission de créer des solutions qui simplifient la vie de tous,<br><br>
         sans jamais perdre de vue l'humain.
       </p>
     </div>
 
     <!-- Projet 1 : Desjardins -->
-    <div class="carte-projet projet-1 reveal reveal-delay-2">
+    <a href="desjardins.html" class="carte-projet projet-1 reveal reveal-delay-2" style="display:block; text-decoration:none; color:inherit;">
       <img src="images/projet1.png" alt="Desjardins" class="image-fond">
       <div class="etiquette">
         <span>Desjardins</span>
@@ -769,10 +790,10 @@
           <span class="tag vert">Architecture d'information</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- Projet 2 : Naître et grandir -->
-    <div class="carte-projet projet-2 reveal reveal-delay-1">
+    <a href="naitre-et-grandir.html" class="carte-projet projet-2 reveal reveal-delay-1" style="display:block; text-decoration:none; color:inherit;">
       <img src="images/projet2.png" alt="Naître et grandir" class="image-fond">
       <div class="etiquette">
         <span>Naître et grandir +</span>
@@ -782,7 +803,7 @@
       </div>
       <div class="overlay">
         <p class="projet-desc">
-          Assistant intelligent de Naître et Grandir visant à centraliser
+          Assistant intelligent visant à centraliser
           l'information périnatale et à accompagner les parents à chaque
           étape de la parentalité.
         </p>
@@ -792,7 +813,7 @@
           <span class="tag orange">Recherche UX</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- Projet 3 : BODI -->
     <a href="bodi.html" class="carte-projet projet-3 reveal reveal-delay-2" style="display:block; text-decoration:none; color:inherit;">
@@ -825,21 +846,16 @@
     <div class="carte-apropos reveal">
       <div class="texte-bio">
         <p>
-          Je me spécialise en recherche, conception et résolution de problèmes,
-          tout en restant curieuse des autres disciplines du design. Cette
-          polyvalence me permet de comprendre un projet dans son ensemble
-          et de créer des expériences cohérentes.
+          Ma partie préférée du processus de design, c'est de la recherche à la conception de produits, de services, d'interfaces, peu importe. Ce qui compte pour moi, c'est bien comprendre le problème avant de le résoudre et de concevoir des solutions qui savent faire la différence.
         </p>
       </div>
       <div class="services">
-        <h3>Forces</h3>
         <ul>
           <li>UX/UI</li>
           <li>Recherche utilisateur</li>
           <li>Conception &amp; idéation</li>
           <li>Architecture d'information</li>
           <li>Design de service</li>
-          <li>Administration</li>
           <li>Marketing</li>
         </ul>
       </div>
@@ -861,12 +877,16 @@
           N'hésitez pas à me contacter !
         </p>
         <div class="liens-contact">
-          <a href="https://www.linkedin.com" target="_blank">LinkedIn ↗</a>
-          <a href="https://drive.google.com/file/d/1tEvXxRfyh6LgLQYV5p5QzKg4imtat7Ns/view?usp=sharing" target="_blank">Curriculum Vitae ↗</a>
+          <a href="https://www.linkedin.com/in/sandrine-babineau-227510224/" target="_blank">LinkedIn ↗</a>
+          <a href="https://drive.google.com/file/d/1E3FcqkD5VMDkEJfy-b9ZgHGUC7xqavb6/view?usp=sharing" target="_blank">Curriculum Vitae ↗</a>
         </div>
       </div>
     </div>
   </section>
+
+  <footer class="credit">
+    <p>Designé sur <span>Figma</span> · Codé avec <span>Claude Cowork</span></p>
+  </footer>
 
   <!-- ==========================================
        BOUTON RETOUR EN HAUT
@@ -945,22 +965,18 @@
     let index = 0;
 
     function changerMot() {
-      // Applique le mot et la couleur correspondants
       span.textContent = mots[index].texte;
       span.style.color  = mots[index].couleur;
 
       if (index === mots.length - 1) {
-        // "demain" : on attend 5 secondes avant de recommencer
         index = 0;
         setTimeout(changerMot, 5000);
       } else {
-        // Tous les autres mots : on change toutes les 500ms
         index++;
         setTimeout(changerMot, 400);
       }
     }
 
-    // Démarrage de l'animation
     changerMot();
   </script>
 

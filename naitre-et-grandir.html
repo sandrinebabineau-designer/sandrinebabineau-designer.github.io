@@ -1,0 +1,3195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naître et grandir + — Sandrine Babineau</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,900;1,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS
+       ============================================= */
+    :root {
+      --color-ng-blue:    #0483c4;
+      --color-ng-bg:      #fff7fd;
+      --color-white:      #ffffff;
+      --color-black:      #000000;
+      --color-nav-border: rgba(0,0,0,0.10);
+
+      --fs-h1:      64px;
+      --fs-h2:      36px;
+      --fs-body-lg: 20px;
+      --fs-body:    18px;
+      --fs-nav:     14px;
+
+      --fw-regular:  400;
+      --fw-medium:   500;
+      --fw-semibold: 600;
+
+      --space-x:    48px;
+      --radius-card: 15px;
+      --radius-tag:  20px;
+    }
+
+    /* =============================================
+       RESET
+       ============================================= */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--color-white);
+      color: var(--color-black);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', sans-serif;
+      font-size: var(--fs-body);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul, ol { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    /* =============================================
+       NAVIGATION
+       ============================================= */
+    .nav {
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-nav-border);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px var(--space-x);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav__logo { color: var(--color-black); font-size: var(--fs-nav); font-weight: var(--fw-medium); }
+
+    .nav__links { display: flex; gap: 40px; align-items: center; }
+    .nav__links a { color: var(--color-black); font-size: var(--fs-nav); font-weight: var(--fw-regular); transition: opacity 0.2s; }
+    .nav__links a:hover { text-decoration: underline; }
+
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px; height: 17px;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .nav__hamburger-line {
+      display: block; width: 100%; height: 2px;
+      background: var(--color-black); border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+    .nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__hamburger[aria-expanded="true"] .nav__hamburger-line:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none; overflow: hidden; max-height: 0;
+      transition: max-height 0.35s ease;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-nav-border);
+    }
+    .nav__mobile-menu.is-open { max-height: 300px; }
+    .nav__mobile-links {
+      display: flex; flex-direction: column;
+      padding: 16px var(--space-x) 24px; gap: 20px;
+    }
+    .nav__mobile-links a {
+      color: var(--color-black); font-size: var(--fs-nav); font-weight: var(--fw-regular);
+      padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* =============================================
+       SHARED WRAPPER
+       ============================================= */
+    .section__inner { max-width: 1100px; margin: 0 auto; padding: 0 var(--space-x); }
+    section[id] { scroll-margin-top: 80px; }
+
+    /* =============================================
+       HERO — MISE EN CONTEXTE
+       ============================================= */
+    .section-hero {
+      background: linear-gradient(to bottom, var(--color-white) 0%, var(--color-ng-bg) 100%);
+      padding: 48px 0 64px;
+    }
+
+    .hero__inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 var(--space-x);
+      display: flex; align-items: center; gap: 74px;
+    }
+
+    .hero__content {
+      flex: 1 1 auto; min-width: 0;
+      display: flex; flex-direction: column; gap: 56px;
+    }
+
+    .hero__top { display: flex; flex-direction: column; gap: 36px; }
+
+    .hero__title {
+      font-size: var(--fs-h1);
+      font-weight: var(--fw-medium);
+      color: var(--color-ng-blue);
+      line-height: 1.2;
+    }
+
+    .hero__desc {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: var(--color-black);
+      line-height: 1.5;
+      max-width: 687px;
+    }
+
+    .hero__meta { display: flex; gap: 24px; align-items: flex-start; }
+
+    .hero__meta-col { display: flex; flex-direction: column; gap: 24px; flex-shrink: 0; }
+    .hero__meta-col--chronologie { width: 173px; }
+    .hero__meta-col--disciplines { width: 201px; }
+    .hero__meta-col--equipe      { width: 201px; }
+
+    .hero__meta-label {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      line-height: 1;
+    }
+
+    .hero__meta-value {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: var(--color-black);
+      line-height: 1.2;
+    }
+
+    .hero__meta-sep {
+      width: 1px; height: 103px;
+      background: rgba(0,0,0,0.20);
+      flex-shrink: 0; align-self: center;
+    }
+
+    .hero__image { flex-shrink: 0; width: 278px; }
+    .hero__image img { width: 100%; height: auto; display: block; }
+
+    /* (section Découvrir d'autres projets retirée) */
+
+    /* =============================================
+       OPPORTUNITÉ DE RECHERCHE
+       ============================================= */
+    .section-opportunite {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .opportunite__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      margin-bottom: 36px;
+      line-height: 1;
+    }
+
+    .opportunite__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      margin-bottom: 56px;
+    }
+
+    .opportunite__intro a {
+      color: var(--color-ng-blue);
+      text-decoration: none;
+    }
+
+    .opportunite__rows {
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .opportunite__row {
+      display: flex;
+      gap: 33px;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .opportunite__row--center {
+      justify-content: center;
+    }
+
+    .opportunite__card {
+      background: var(--color-white);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      flex: 1 0 0;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .opportunite__row--center .opportunite__card {
+      flex: 0 0 384px;
+    }
+
+    .opportunite__card-icon {
+      width: 46px;
+      height: 46px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .opportunite__card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      line-height: 1;
+    }
+
+    .opportunite__card-desc {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       DÉMARCHE DE RECHERCHE
+       ============================================= */
+    .section-demarche {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .demarche__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      margin-bottom: 36px;
+      line-height: 1;
+    }
+
+    .demarche__cards {
+      display: flex;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .demarche__card {
+      flex: 1 0 0;
+      background: var(--color-white);
+      border-radius: 15px;
+      padding: 35px 33px 28px;
+      min-height: 315px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .demarche__card-text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .demarche__card-title {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1.2;
+    }
+
+    .demarche__card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    .demarche__card-icon {
+      width: 46px;
+      height: 46px;
+      align-self: flex-end;
+      display: block;
+      margin-top: 20px;
+    }
+
+    /* =============================================
+       RÉALITÉ D'HIER — CARROUSEL
+       ============================================= */
+    .section-realite {
+      background: var(--color-white);
+      padding: 48px 0;
+    }
+
+    .realite__header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--space-x);
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .realite__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      line-height: 1;
+    }
+
+    .realite__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      max-width: 820px;
+    }
+
+    /* Piste de défilement */
+    .realite__carousel {
+      padding-left: 0;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-ng-blue) rgba(4,131,196,0.15);
+      padding-bottom: 14px;
+    }
+    .realite__carousel.is-grabbing {
+      cursor: grabbing;
+      scroll-behavior: auto;
+    }
+    .realite__carousel::-webkit-scrollbar { height: 5px; }
+    .realite__carousel::-webkit-scrollbar-track {
+      background: rgba(4,131,196,0.12);
+      border-radius: 3px;
+    }
+    .realite__carousel::-webkit-scrollbar-thumb {
+      background: var(--color-ng-blue);
+      border-radius: 3px;
+    }
+
+    .realite__slide {
+      flex-shrink: 0;
+      height: 420px;
+      width: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* Hint "Défiler vers la droite" */
+    .realite__hint {
+      max-width: 1100px;
+      margin: 18px auto 0;
+      padding: 0 var(--space-x);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .realite__hint-text {
+      font-size: var(--fs-body-lg);
+      color: #7a7a7a;
+      font-weight: var(--fw-regular);
+    }
+
+    /* =============================================
+       INSIGHTS PRINCIPAUX DE RECHERCHE
+       ============================================= */
+    .section-insights {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .insights__title {
+      font-size: var(--fs-h2);       /* 36px */
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin-bottom: 40px;
+    }
+    .insights__title em {
+      font-style: italic;
+    }
+
+    /* Grille 2 colonnes : col gauche flexible, col droite ~542px */
+    .insights__grid {
+      display: grid;
+      grid-template-columns: 1fr 490px;
+      row-gap: 24px;
+      column-gap: 48px;
+    }
+
+    .insights__item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .insights__num {
+      font-family: 'Inter', sans-serif;
+      font-size: 32px;
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      width: 44px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .insights__text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* =============================================
+       PROBLÉMATIQUE ET OPPORTUNITÉ
+       ============================================= */
+    .section-problematique {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .problematique__card {
+      background: var(--color-white);
+      border-radius: 12px;
+      box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 31px;
+    }
+
+    .problematique__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      line-height: 1;
+    }
+
+    .problematique__text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       CARTE D'EXPÉRIENCE
+       ============================================= */
+    .section-carte {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .carte__header {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 46px;
+    }
+
+    .carte__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);   /* noir — pas bleu */
+      line-height: 1.1;
+    }
+
+    .carte__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    .carte__image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Wrapper image + overlay */
+    .carte__image-wrap {
+      position: relative;
+      display: block;
+      cursor: default;
+    }
+
+    /* Overlay Zone d'intervention — SVG positionné sur la carte */
+    .carte__overlay {
+      position: absolute;
+      left: calc(26% - 16px); /* début de la pastille Grossesse, -16px */
+      width: 63.9%;       /* 767px / 1200px — jusqu'à fin Congé parental */
+      bottom: -4%;        /* léger débordement pour le pill */
+      height: auto;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      display: block;
+    }
+
+    .carte__image-wrap:hover .carte__overlay {
+      opacity: 1;
+    }
+
+    .carte__hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .carte__hint-text {
+      font-size: var(--fs-body-lg);
+      color: #7a7a7a;
+    }
+
+    /* =============================================
+       PRINCIPES DE CONCEPTION
+       ============================================= */
+    .section-principes {
+      background: var(--color-white);
+      padding: 48px 0;
+    }
+
+    .principes__header {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .principes__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+    }
+
+    .principes__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    .principes__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .principes__card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 15px;
+    }
+
+    .principes__card--1 { background: #fffcda; }
+    .principes__card--2 { background: #c7e6f2; }
+    .principes__card--3 { background: #fee2e1; }
+    .principes__card--4 { background: #bae4d1; }
+
+    .principes__num {
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      width: 34px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .principes__text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .principes__grid { grid-template-columns: 1fr; }
+    }
+
+    /* =============================================
+       OBJECTIFS VISÉS PAR LA SOLUTION
+       ============================================= */
+    .section-objectifs {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .objectifs__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin-bottom: 66px;
+    }
+
+    .objectifs__cards {
+      display: flex;
+      gap: 33px;
+      align-items: stretch;
+    }
+
+    .objectifs__card {
+      flex: 1 0 0;
+      background: var(--color-white);
+      border-radius: 15px;
+      padding: 20px;
+      min-height: 202px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .objectifs__badge {
+      width: 49px;
+      height: 49px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .objectifs__badge--1 { background: #c7e7f2; }
+    .objectifs__badge--2 { background: #fee2e1; }
+    .objectifs__badge--3 { background: #bbe4d1; }
+
+    .objectifs__badge-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 28.5px;
+      font-weight: 700;
+      color: var(--color-black);
+      line-height: 1;
+      letter-spacing: -0.57px;
+    }
+
+    .objectifs__card-text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .objectifs__cards { flex-direction: column; gap: 16px; }
+      .objectifs__card { min-height: auto; }
+    }
+
+    /* =============================================
+       SOLUTIONS DISCARTÉES
+       ============================================= */
+    .section-solutions {
+      background: var(--color-ng-bg);
+      padding: 48px 0;
+    }
+
+    .solutions__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .solutions__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      margin-bottom: 48px;
+    }
+
+    .solutions__matrix-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 4px;
+    }
+
+    .solutions__matrix {
+      display: grid;
+      grid-template-columns: 33% repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(0,0,0,0.08);
+      min-width: 640px;
+    }
+
+    .solutions__corner {
+      background: var(--color-ng-bg);
+    }
+
+    .solutions__col-header {
+      padding: 16px 8px;
+      text-align: center;
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solutions__col-header--1 { background: #fffcda; }
+    .solutions__col-header--2 { background: #c7e6f2; }
+    .solutions__col-header--3 { background: #fee2e1; }
+    .solutions__col-header--4 { background: #bbe4d1; }
+
+    .solutions__idea-cell {
+      background: white;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .solutions__idea-icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .solutions__idea-icon img { width: 60px; height: 60px; object-fit: contain; }
+
+    .solutions__idea-name {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .solutions__idea-desc {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.4;
+    }
+
+    .solutions__cell {
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 110px;
+    }
+
+    .solutions__dot {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .solutions__dot--green  { background: #22c55e; }
+    .solutions__dot--yellow { background: #FFD311; }
+    .solutions__dot--red    { background: #d94040; }
+
+    .solutions__legend {
+      margin-top: 24px;
+    }
+
+    .solutions__legend-title {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      margin-bottom: 10px;
+    }
+
+    .solutions__legend-items {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .solutions__legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+    }
+
+    .solutions__legend-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* =============================================
+       SOLUTION NAÎTRE ET GRANDIR +
+       ============================================= */
+    .section-solution {
+      background: var(--color-ng-bg);
+      padding: 36px 0;
+    }
+
+    .solution__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--space-x);
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .solution__text {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .solution__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1.15;
+    }
+
+    .solution__title-plus {
+      color: var(--color-ng-blue);
+      font-size: 40px;
+    }
+
+    .solution__desc {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      max-width: 480px;
+    }
+
+    .solution__phone {
+      flex-shrink: 0;
+      width: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solution__phone img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: rotate(-4.85deg) skewX(0.46deg);
+    }
+
+    @media (max-width: 1024px) {
+      .solution__phone { width: 340px; }
+    }
+
+    @media (max-width: 768px) {
+      .solution__inner { flex-direction: column; gap: 32px; }
+      .solution__phone { width: 280px; }
+      .solution__desc { max-width: 100%; }
+    }
+
+    /* =============================================
+       NOS AJOUTS À L'APPLICATION
+       ============================================= */
+    .section-ajouts {
+      background: var(--color-ng-bg);
+      padding: 36px 0;
+    }
+
+    .ajouts__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin-bottom: 40px;
+    }
+
+    /* En-têtes des colonnes */
+    .ajouts__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 24px;
+    }
+
+    .ajouts__col-header {
+      background: var(--color-white);
+      border-radius: 15px;
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ajouts__col-title {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+    }
+
+    .ajouts__col-title-plus { color: var(--color-ng-blue); }
+
+    .ajouts__col-subtitle {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: var(--color-black);
+      line-height: 1;
+    }
+
+    /* Grille partagée : items interleaved = même hauteur de rangée */
+    .ajouts__body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+      row-gap: 16px;          /* espace fixe et uniforme entre chaque rangée */
+      grid-auto-rows: 72px;   /* hauteur identique pour toutes les rangées */
+      align-items: center;    /* contenu centré verticalement dans chaque rangée */
+      position: relative;
+      padding: 32px 0;        /* marge haut/bas du "card" */
+    }
+
+    /* Fonds blancs des deux colonnes via pseudo-éléments */
+    .ajouts__body-grid::before,
+    .ajouts__body-grid::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      background: var(--color-white);
+      border-radius: 15px;
+      pointer-events: none;
+    }
+    .ajouts__body-grid::before { left: 0; right: calc(50% + 24px); }
+    .ajouts__body-grid::after  { right: 0; left: calc(50% + 24px); }
+
+    .ajouts__item {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 13px;
+      align-items: center;  /* contenu centré verticalement dans l'item étiré */
+      padding: 0 38px;
+    }
+
+    .ajouts__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-ng-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 6px;
+    }
+
+    .ajouts__icon img {
+      width: 32px;
+      height: 32px;
+      display: block;
+    }
+
+    .ajouts__item-text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .ajouts__cols { grid-template-columns: 1fr; gap: 16px; }
+      .ajouts__body-grid { grid-template-columns: 1fr; }
+      .ajouts__body-grid::after { display: none; }
+      .ajouts__body-grid::before { right: 0; }
+      .ajouts__body-grid .ajouts__item:nth-child(8) { padding-bottom: 8px; }
+    }
+
+    /* =============================================
+       QUESTIONNAIRE D'ONBOARDING
+       ============================================= */
+    .section-questionnaire { background: var(--color-ng-bg); padding: 36px 0; }
+
+    .quest__top { margin-bottom: 80px; }
+
+    .quest__header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .quest__icon-wrap {
+      width: 61px;
+      height: 61px;
+      border-radius: 50%;
+      background: var(--color-ng-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quest__icon-img { width: 46px; height: 46px; }
+
+    .quest__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin: 0;
+    }
+
+    .quest__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      max-width: 620px;
+      margin: 0;
+    }
+
+    /* Mockups */
+    .quest__content { }
+
+    .quest__mockups {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ---- Téléphones questionnaire ---- */
+    .quest__phones {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 0 24px;
+    }
+    .qphone {
+      width: 210px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 36px;
+      box-shadow: 0 24px 56px rgba(0,0,0,0.16);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+    }
+    .qphone:nth-child(1) {
+      transform: translateX(32px) scale(0.91);
+      z-index: 1;
+      margin-top: 24px;
+    }
+    .qphone:nth-child(2) { z-index: 3; }
+    .qphone:nth-child(3) {
+      transform: translateX(-32px) scale(0.91);
+      z-index: 2;
+      margin-top: 24px;
+    }
+    /* Status bar */
+    .qphone__status {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 20px 6px; background: #fff; flex-shrink: 0;
+    }
+    .qphone__time { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+    .qphone__battery {
+      width: 22px; height: 11px; border: 1.5px solid #1a1a1a; border-radius: 2px;
+      position: relative; display: inline-block;
+    }
+    .qphone__battery::after {
+      content: ''; position: absolute; right: -4px; top: 2px;
+      width: 2px; height: 5px; background: #1a1a1a; border-radius: 0 1px 1px 0;
+    }
+    .qphone__battery::before {
+      content: ''; position: absolute; left: 1px; top: 1px;
+      width: 17px; height: 7px; background: #1a1a1a; border-radius: 1px;
+    }
+    /* Header */
+    .qphone__header {
+      background: #c7e7f2; padding: 10px 18px 12px; flex-shrink: 0;
+    }
+    .qphone__nav {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+    }
+    .qphone__back { font-size: 16px; color: #1a1a1a; line-height: 1; }
+    .qphone__title { font-size: 15px; font-weight: 700; color: #1a1a1a; }
+    .qphone__progress {
+      height: 3px; background: rgba(0,0,0,0.12); border-radius: 2px; margin-bottom: 5px;
+    }
+    .qphone__progress-fill {
+      height: 100%; background: #4a9bb8; border-radius: 2px;
+    }
+    .qphone__step { font-size: 11px; color: #1a1a1a; opacity: 0.7; }
+    /* Body */
+    .qphone__body { padding: 14px 16px 10px; flex: 1; }
+    .qphone__q-label {
+      font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase;
+      letter-spacing: 0.04em; margin-bottom: 4px;
+    }
+    .qphone__q-text {
+      font-size: 13px; color: #1a1a1a; line-height: 1.4; margin-bottom: 14px;
+    }
+    .qphone__options { display: flex; flex-direction: column; gap: 7px; }
+    .qphone__option {
+      padding: 9px 14px; border-radius: 999px; font-size: 13px;
+      color: #1a1a1a; background: #f0f0f0;
+    }
+    .qphone__option--selected { background: #e2d0f5; }
+    /* Footer */
+    .qphone__footer { padding: 10px 16px 18px; flex-shrink: 0; }
+    .qphone__btn {
+      width: 100%; padding: 12px; background: #b8d9e8; border-radius: 999px;
+      font-size: 14px; font-weight: 600; color: #1a1a1a; text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .quest__phones { flex-direction: column; align-items: center; gap: 20px; padding: 24px 0; }
+      .qphone { width: 100%; max-width: 300px; }
+      .qphone:nth-child(1),
+      .qphone:nth-child(2),
+      .qphone:nth-child(3) { transform: none; margin-top: 0; z-index: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .quest__top { margin-bottom: 32px; }
+    }
+
+    /* =============================================
+       ASSISTANT IA CONVERSATIONNEL
+       ============================================= */
+    .section-assistant-ia { background: var(--color-ng-bg); padding: 36px 0; }
+
+    /* En-tête */
+    .assistant-ia__header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .assistant-ia__icon-wrap {
+      width: 61px;
+      height: 61px;
+      border-radius: 50%;
+      background: var(--color-ng-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .assistant-ia__icon-img {
+      width: 46px;
+      height: 46px;
+    }
+
+    .assistant-ia__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin: 0;
+    }
+
+    /* Zone mockup + blocs texte */
+    .assistant-ia__mockup-area {
+      position: relative;
+      height: 730px;
+      margin-bottom: 48px;
+    }
+
+    .assistant-ia__phone {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 430px;
+      height: auto;
+    }
+
+    /* Bracket style inspiré de BODI : border-left + perpendiculaire centrée */
+    .assistant-ia__text-block {
+      position: absolute;
+      left: 450px;
+      width: calc(100% - 450px);
+      border-left: 3px solid var(--color-ng-blue);
+      padding-left: 20px;
+    }
+
+    .assistant-ia__text-block::before {
+      content: '';
+      position: absolute;
+      left: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 3px;
+      background: var(--color-ng-blue);
+    }
+
+    .assistant-ia__text-block--1 { top: 265px; }
+    .assistant-ia__text-block--2 { top: 560px; }
+
+    .assistant-ia__text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    .assistant-ia__text strong { font-weight: var(--fw-semibold); }
+
+    /* Schéma écosystème */
+    .assistant-ia__ecosysteme {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .assistant-ia__schema-desc {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      width: 370px;
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    .assistant-ia__schema-img {
+      position: absolute;
+      top: 100px;
+      left: calc(50% + 110px);
+      transform: translateX(-50%);
+      width: 80%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .assistant-ia__mockup-area { height: auto; }
+      .assistant-ia__phone { position: static; width: 100%; margin-bottom: 24px; }
+      .assistant-ia__text-block {
+        position: static;
+        width: 100%;
+        margin-bottom: 16px;
+      }
+      .assistant-ia__ecosysteme { min-height: auto; }
+      .assistant-ia__schema-desc { position: static; width: 100%; margin-bottom: 16px; }
+      .assistant-ia__schema-img { position: static; width: 100%; transform: none; }
+    }
+
+    /* =============================================
+       ONGLET COMMUNAUTÉ
+       ============================================= */
+    .section-communaute { background: var(--color-ng-bg); padding: 36px 0; }
+
+    .communaute__header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .communaute__icon-wrap {
+      width: 61px;
+      height: 61px;
+      border-radius: 50%;
+      background: var(--color-ng-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .communaute__icon-img { width: 46px; height: 46px; }
+
+    .communaute__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin: 0;
+    }
+
+    .communaute__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      max-width: 620px;
+      margin: 0 0 48px;
+    }
+
+    /* Corps : features à gauche, mockup à droite */
+    .communaute__body {
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+    }
+
+    .communaute__features {
+      flex: 0 0 440px;
+    }
+
+    .communaute__features-title {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      margin: 0 0 36px;
+    }
+
+    .communaute__feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .communaute__feature {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .communaute__num {
+      width: 49px;
+      height: 49px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-black);
+    }
+
+    .communaute__num--1 { background: #c7e7f2; }
+    .communaute__num--2 { background: #fee2e1; }
+    .communaute__num--3 { background: #bbe4d1; }
+
+    .communaute__feature-text {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* Mockup téléphone */
+    .communaute__mockup-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .communaute__scroll-hint {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 18px;
+      font-style: italic;
+      color: #7a7a7a;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .communaute__phone {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      margin-top: 40px;
+      margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+      .communaute__body { flex-direction: column; }
+      .communaute__features { flex: none; width: 100%; }
+      .communaute__phone { max-width: 100%; margin-top: 24px; }
+      .phone-mockup { max-width: 100%; }
+    }
+
+    /* --- Mockup HTML téléphone communauté --- */
+    .phone-mockup {
+      width: 100%;
+      max-width: 420px;
+      margin-left: auto;
+      margin-top: 40px;
+      background: white;
+      border-radius: 42px;
+      overflow: hidden;
+      box-shadow: 0 27px 53px -13px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      font-family: 'Inter', sans-serif;
+    }
+    .phone-mockup__status {
+      height: 47px; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: white; flex-shrink: 0;
+    }
+    .phone-mockup__time { font-size: 14px; color: #2b2b2b; }
+    .phone-mockup__header {
+      background: #c7e7f2; height: 89px; padding: 0 25px;
+      display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+    }
+    .phone-mockup__icon-circle {
+      width: 51px; height: 51px; border-radius: 50%; background: white;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .phone-mockup__app-title { font-size: 17px; font-weight: 700; color: #2b2b2b; }
+    .phone-mockup__app-subtitle { font-size: 14px; color: #2b2b2b; }
+    .phone-mockup__scroll-area {
+      height: 560px; overflow-y: auto; background: #f2f2f2;
+      flex-shrink: 0; scrollbar-width: none;
+    }
+    .phone-mockup__scroll-area::-webkit-scrollbar { display: none; }
+    .phone-mockup__section { padding: 20px 20px 0; }
+    .phone-mockup__section-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+    }
+    .phone-mockup__section-title { font-size: 16px; font-weight: 700; color: #2b2b2b; }
+    .phone-mockup__see-all { font-size: 14px; color: #8cc8db; }
+    .phone-event-card {
+      background: white; border-radius: 16px; padding: 16px;
+      margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .phone-event-card__title { font-size: 16px; color: #2b2b2b; margin-bottom: 8px; }
+    .phone-event-card__meta { display: flex; gap: 16px; align-items: center; margin-bottom: 8px; }
+    .phone-event-card__meta-item { display: flex; align-items: center; gap: 4px; font-size: 14px; color: #2b2b2b; }
+    .phone-event-card__footer { display: flex; align-items: center; justify-content: space-between; }
+    .phone-event-card__participants { font-size: 14px; color: #2b2b2b; }
+    .phone-pill { border-radius: 999px; padding: 5px 18px; font-size: 14px; color: #2b2b2b; display: inline-block; }
+    .phone-pill--yellow { background: #fbf5b3; }
+    .phone-pill--green  { background: #bbe5d1; }
+    .phone-pill--blue   { background: #8cc8db; }
+    .phone-pub-card {
+      background: white; border-radius: 17px; padding: 17px;
+      margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .phone-pub-card__author { font-size: 17px; color: #2b2b2b; margin-bottom: 2px; }
+    .phone-pub-card__meta { font-size: 14px; color: #6b6b6b; margin-bottom: 8px; }
+    .phone-pub-card__text { font-size: 16px; color: #2b2b2b; line-height: 1.5; margin-bottom: 12px; }
+    .phone-pub-card__actions { display: flex; gap: 18px; font-size: 14px; color: #6b6b6b; }
+    .phone-pub-card__action { display: flex; align-items: center; gap: 4px; }
+    .phone-group-card {
+      background: white; border-radius: 17px; padding: 17px;
+      margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .phone-group-card__name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .phone-group-card__name { font-size: 16px; color: #2b2b2b; }
+    .phone-group-card__desc { font-size: 14px; color: #2b2b2b; margin-bottom: 4px; }
+    .phone-group-card__meta { font-size: 13px; color: #2b2b2b; }
+    .phone-group-card__actions { flex-shrink: 0; margin-left: 8px; }
+    .phone-mockup__nav {
+      height: 80px; background: white; border-top: 1px solid #e5e5e5;
+      display: flex; align-items: stretch; flex-shrink: 0;
+    }
+    .phone-nav__tab {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 3px; padding: 8px 2px;
+    }
+    .phone-nav__label { font-size: 10px; color: #a0a0a0; }
+    .phone-nav__label--active { color: #8cc8db; font-weight: 600; }
+
+    /* =============================================
+       PARTAGE DES RESPONSABILITÉS
+       ============================================= */
+    .section-partage { background: var(--color-ng-bg); padding: 36px 0; }
+
+    .partage__header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .partage__icon-wrap {
+      width: 61px;
+      height: 61px;
+      border-radius: 50%;
+      background: var(--color-ng-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .partage__icon-img { width: 46px; height: 46px; }
+
+    .partage__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1;
+      margin: 0;
+    }
+
+    .partage__intro {
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.5;
+      max-width: 640px;
+      margin: 0 0 48px;
+    }
+
+    .partage__illustrations {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .partage__card {
+      background: white;
+      border-radius: 12px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      min-height: 244px;
+    }
+
+    .partage__card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .partage__arrow {
+      flex-shrink: 0;
+      color: var(--color-ng-blue);
+    }
+
+    @media (max-width: 768px) {
+      .partage__illustrations { flex-direction: column; }
+      .partage__arrow { transform: rotate(90deg); }
+    }
+
+    /* =============================================
+       BÉNÉFICES DE LA SOLUTION
+       ============================================= */
+    .section-benefices { background: var(--color-ng-bg); padding: 48px 0; }
+
+    .benefices__title {
+      font-size: 32px;
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      margin: 0 0 48px;
+    }
+
+    /* Deux cartes côte à côte */
+    .benefices__cards {
+      display: flex;
+      gap: 36px;
+      margin-bottom: 36px;
+    }
+
+    .benefices__card {
+      flex: 1;
+      background: white;
+      border-radius: 12px;
+      padding: 36px;
+    }
+
+    .benefices__card-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .benefices__card-arrow {
+      flex-shrink: 0;
+      color: var(--color-ng-blue);
+    }
+
+    .benefices__card-title {
+      font-size: var(--fs-body-lg);
+      font-weight: 700;
+      color: var(--color-black);
+      margin: 0;
+    }
+
+    .benefices__items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .benefices__item-label {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      margin: 0 0 2px;
+    }
+
+    .benefices__item-desc {
+      font-size: var(--fs-body-lg);
+      font-weight: 400;
+      color: var(--color-black);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* 4 piliers colorés */
+    .benefices__pillars {
+      background: white;
+      border-radius: 15px;
+      padding: 10px 24px 24px;
+      display: flex;
+      gap: 23px;
+    }
+
+    .benefices__pillar {
+      flex: 1;
+      position: relative;
+    }
+
+    .benefices__pillar-check {
+      position: absolute;
+      top: 1px;
+      right: -13px;
+      width: 27px;
+      height: 27px;
+      z-index: 1;
+    }
+
+    .benefices__pillar-tile {
+      margin-top: 14px;
+      border-radius: 8px;
+      height: 105px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      text-align: center;
+      font-size: var(--fs-body-lg);
+      color: var(--color-black);
+      line-height: 1.3;
+    }
+
+    .benefices__pillar--bleu .benefices__pillar-tile   { background: #c7e6f2; }
+    .benefices__pillar--jaune .benefices__pillar-tile  { background: #fffcda; }
+    .benefices__pillar--rose .benefices__pillar-tile   { background: #fee6e5; }
+    .benefices__pillar--vert .benefices__pillar-tile   { background: #bae4d1; }
+
+    @media (max-width: 768px) {
+      .benefices__cards { flex-direction: column; }
+      .benefices__pillars { flex-wrap: wrap; }
+      .benefices__pillar { flex: 0 0 calc(50% - 12px); }
+    }
+
+    /* =============================================
+       UTILISATION DE L'IA
+       ============================================= */
+    .section-ia { background: var(--color-white); padding: 48px 0; }
+
+    .ia__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      margin-bottom: 48px;
+      line-height: 1;
+    }
+
+    .ia__items {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .ia__item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .ia__num {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-ng-blue);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 52px;
+    }
+
+    .ia__content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ia__item-title {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      line-height: 1.3;
+    }
+
+    .ia__item-desc {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       DÉCOUVRIR D'AUTRES PROJETS
+       ============================================= */
+    .section-autres { background: var(--color-white); padding: 48px 0; }
+
+    .autres__title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-semibold);
+      color: var(--color-black);
+      margin-bottom: 48px;
+    }
+
+    .autres__cards {
+      display: flex;
+      gap: 40px;
+    }
+
+    .autres__card {
+      flex: 1;
+      border-radius: var(--radius-card);
+      box-shadow: 0 4px 2px rgba(0,0,0,0.10);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .autres__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.13);
+    }
+
+    .autres__card-img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .autres__card-body {
+      background: white;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .autres__card-name {
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--color-black);
+    }
+
+    .autres__card-desc {
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: var(--color-black);
+      line-height: 1.5;
+    }
+
+    .autres__card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .autres__tag {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: var(--radius-tag);
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-regular);
+      color: white;
+    }
+    .autres__tag--rose   { background: #e92b61; }
+    .autres__tag--bleu   { background: #8cb3f1; }
+    .autres__tag--orange { background: #ef891c; }
+    .autres__tag--vert   { background: #03b211; }
+
+    @media (max-width: 768px) {
+      .autres__cards { flex-direction: column; }
+    }
+
+    /* =============================================
+       FOOTER — CURIEUX D'EN SAVOIR PLUS ?
+       ============================================= */
+    .section-footer { background: var(--color-white); padding: 48px 0 80px; }
+
+    .footer__title { font-size: var(--fs-h2); font-weight: var(--fw-medium); color: var(--color-black); margin-bottom: 12px; }
+    .footer__line { border: none; border-top: 1.5px solid rgba(0,0,0,0.18); margin: 0 0 20px; }
+    .footer__coords { font-size: var(--fs-body-lg); color: var(--color-black); font-style: normal; }
+    .footer__coords a { color: inherit; text-decoration: none; }
+    .footer__coords a:hover { text-decoration: underline; }
+
+    /* =============================================
+       BACK TO TOP
+       ============================================= */
+    #btn-haut {
+      position: fixed; bottom: 40px; right: 40px;
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--color-ng-blue);
+      border: none; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.2s ease; z-index: 100;
+    }
+    #btn-haut.visible { opacity: 1; pointer-events: all; }
+    #btn-haut:hover { transform: translateY(-2px); }
+
+    /* =============================================
+       MENU LATÉRAL GAUCHE
+       ============================================= */
+    .side-nav {
+      position: fixed; left: 20px; top: 50%;
+      transform: translateY(-50%); z-index: 200;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .side-nav__item { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+    .side-nav__dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(4, 131, 196, 0.4); flex-shrink: 0;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .side-nav__item:hover .side-nav__dot,
+    .side-nav__item.active .side-nav__dot { background: #0483c4; transform: scale(1.3); }
+    .side-nav__label {
+      font-size: 11px; font-weight: var(--fw-medium); color: #0483c4;
+      white-space: nowrap; opacity: 0; transform: translateX(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none; letter-spacing: 0.02em;
+    }
+    .side-nav__item:hover .side-nav__label,
+    .side-nav__item.active .side-nav__label { opacity: 1; transform: translateX(0); }
+
+    /* =============================================
+       ANIMATIONS AU SCROLL
+       ============================================= */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+    .reveal-delay-3 { transition-delay: 0.36s; }
+
+    /* =============================================
+       RESPONSIVE — TABLETTE (≤1024px)
+       ============================================= */
+    @media (max-width: 1024px) {
+      :root { --space-x: 36px; }
+
+      .side-nav { display: none; }
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+      .nav__mobile-menu { display: block; }
+
+      .hero__inner { gap: 40px; }
+      .hero__image { width: 220px; }
+
+      .opportunite__row { gap: 20px; }
+      .opportunite__row--center .opportunite__card { flex: 1 0 0; }
+
+      .realite__slide { height: 340px; }
+      .insights__grid { grid-template-columns: 1fr 380px; column-gap: 32px; }
+    }
+
+    /* =============================================
+       RESPONSIVE — MOBILE (≤768px)
+       ============================================= */
+    @media (max-width: 768px) {
+      :root { --space-x: 20px; --fs-h1: 32px; --fs-h2: 24px; --fs-body-lg: 17px; }
+
+      .nav__inner { padding: 16px var(--space-x); }
+
+      .hero__inner { flex-direction: column; gap: 32px; padding: 0 var(--space-x); }
+      .hero__content { gap: 36px; }
+      .hero__image { width: 200px; align-self: center; }
+      .hero__meta { flex-direction: column; gap: 20px; }
+      .hero__meta-sep { display: none; }
+      .hero__meta-col--chronologie,
+      .hero__meta-col--disciplines,
+      .hero__meta-col--equipe { width: auto; }
+
+      .opportunite__row,
+      .opportunite__row--center { flex-direction: column; gap: 16px; }
+      .opportunite__row--center .opportunite__card { flex: 1; }
+      .opportunite__card { min-height: auto; }
+
+      .demarche__cards { flex-direction: column; gap: 16px; }
+      .demarche__card { min-height: auto; }
+
+      .realite__slide { height: 220px; }
+      .insights__grid { grid-template-columns: 1fr; }
+      .insights__num { font-size: 24px; }
+
+      .footer__title { font-size: 22px; }
+
+      #btn-haut { bottom: 24px; right: 24px; width: 46px; height: 46px; }
+    }
+  </style>
+  <style>
+    .credit { text-align: center; padding: 20px 0 28px; font-size: 11px; color: rgba(0,0,0,0.5); letter-spacing: 0.04em; }
+    .credit span { font-weight: 500; color: rgba(0,0,0,0.65); }
+  </style>
+
+  <!-- Meta tags OpenGraph (partage sur réseaux sociaux) -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Naître et Grandir + — Sandrine Babineau" />
+  <meta property="og:description" content="Projet Naître et Grandir + : assistant intelligent périnatal pour accompagner les parents à chaque étape de la parentalité." />
+  <meta property="og:image"       content="https://sandrinebabineau-designer.github.io/images/og-image.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="Naître et Grandir + — Sandrine Babineau" />
+  <meta name="twitter:description" content="Projet Naître et Grandir + : assistant intelligent périnatal pour accompagner les parents à chaque étape de la parentalité." />
+  <meta name="twitter:image"      content="https://sandrinebabineau-designer.github.io/images/og-image.png" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="nav" role="banner">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Retour à l'accueil — Sandrine Babineau">Sandrine Babineau</a>
+      <nav class="nav__links" aria-label="Navigation principale">
+        <a href="apropos.html">À propos</a>
+        <a href="index.html">Projets</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="nav__hamburger" id="hamburger-btn" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+        <span class="nav__hamburger-line"></span>
+      </button>
+    </div>
+    <nav class="nav__mobile-menu" id="mobile-menu" aria-label="Navigation mobile">
+      <div class="nav__mobile-links">
+        <a href="apropos.html">À propos</a>
+        <a href="index.html">Projets</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MENU LATÉRAL GAUCHE -->
+  <nav class="side-nav" aria-label="Navigation sections">
+    <a class="side-nav__item" href="#mise-en-contexte">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Mise en contexte</span>
+    </a>
+    <a class="side-nav__item" href="#opportunite">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Opportunité de recherche</span>
+    </a>
+    <a class="side-nav__item" href="#demarche">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Démarche de recherche</span>
+    </a>
+    <a class="side-nav__item" href="#insights">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Insights et opportunité</span>
+    </a>
+    <a class="side-nav__item" href="#objectifs">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Processus d'idéation</span>
+    </a>
+    <a class="side-nav__item" href="#solution">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Solution</span>
+    </a>
+    <a class="side-nav__item" href="#benefices">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Bénéfices de la solution</span>
+    </a>
+    <a class="side-nav__item" href="#ia">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">IA</span>
+    </a>
+    <a class="side-nav__item" href="#contact">
+      <span class="side-nav__dot"></span>
+      <span class="side-nav__label">Faire connaissance</span>
+    </a>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="section-hero" id="mise-en-contexte" aria-labelledby="hero-title">
+      <div class="hero__inner">
+
+        <div class="hero__content">
+          <div class="hero__top">
+            <h1 class="hero__title reveal" id="hero-title">Naître et grandir +</h1>
+            <p class="hero__desc reveal reveal-delay-1">
+              Réalisé dans le cadre de la maîtrise en design d'interaction à l'Université Laval, ce projet vise à accompagner les parents à chaque étape de la maternité et de la parentalité en centralisant l'information périnatale sur une même plateforme.
+            </p>
+          </div>
+
+          <div class="hero__meta reveal reveal-delay-2">
+            <div class="hero__meta-col hero__meta-col--chronologie">
+              <span class="hero__meta-label">Chronologie</span>
+              <span class="hero__meta-value">Septembre à<br>décembre 2025</span>
+            </div>
+            <div class="hero__meta-sep" aria-hidden="true"></div>
+            <div class="hero__meta-col hero__meta-col--disciplines">
+              <span class="hero__meta-label">Disciplines</span>
+              <span class="hero__meta-value">Recherche UX<br>Design de service<br>Design d'interface</span>
+            </div>
+            <div class="hero__meta-sep" aria-hidden="true"></div>
+            <div class="hero__meta-col hero__meta-col--equipe">
+              <span class="hero__meta-label">Équipe</span>
+              <span class="hero__meta-value">Sandrine Babineau<br>Anna Marie Asselin<br>Sophie Laroche<br>Stéphanie G. Caron</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__image reveal reveal-delay-3">
+          <img src="images/naitre-et-grandir/iphone-ng.svg" alt="Aperçu de l'application Naître et grandir +" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         OPPORTUNITÉ DE RECHERCHE
+         ========================================== -->
+    <section class="section-opportunite" id="opportunite">
+      <div class="section__inner">
+
+        <h2 class="opportunite__title reveal">Opportunité de recherche</h2>
+
+        <p class="opportunite__intro reveal reveal-delay-1">
+          Le Québec connaît une transformation importante de sa réalité familiale, marquée par <a href="#">une baisse de la natalité</a> depuis plusieurs décennies, malgré des politiques publiques parmi les plus avantageuses en Amérique du Nord (Institut de la statistique du Québec, 2025). Parallèlement, la parentalité demeure une transition exigeante, tant sur les plans financier, émotionnel que professionnel, dont le coût repose encore largement sur les mères.
+        </p>
+
+        <div class="opportunite__rows">
+
+          <!-- Rangée 1 : 3 cartes -->
+          <div class="opportunite__row reveal reveal-delay-2">
+
+            <div class="opportunite__card">
+              <img class="opportunite__card-icon" src="images/naitre-et-grandir/icone-acces.svg" alt="" aria-hidden="true" />
+              <p class="opportunite__card-title">Accès inégal aux ressources</p>
+              <p class="opportunite__card-desc">L'expérience de la maternité varie selon les régions et les profils des familles, révélant des disparités dans l'accès à l'accompagnement.</p>
+            </div>
+
+            <div class="opportunite__card">
+              <img class="opportunite__card-icon" src="images/naitre-et-grandir/icone-info.svg" alt="" aria-hidden="true" />
+              <p class="opportunite__card-title">Informations dispersées</p>
+              <p class="opportunite__card-desc">Les parents doivent naviguer entre plusieurs sources, souvent peu centralisées et difficiles d'accès.</p>
+            </div>
+
+            <div class="opportunite__card">
+              <img class="opportunite__card-icon" src="images/naitre-et-grandir/icone-cout.svg" alt="" aria-hidden="true" />
+              <p class="opportunite__card-title">Coût de la vie en hausse</p>
+              <p class="opportunite__card-desc">Le coût croissant du logement, de l'alimentation et des services accentue la pression financière des familles.</p>
+            </div>
+
+          </div>
+
+          <!-- Rangée 2 : 2 cartes centrées -->
+          <div class="opportunite__row opportunite__row--center reveal reveal-delay-3">
+
+            <div class="opportunite__card">
+              <img class="opportunite__card-icon" src="images/naitre-et-grandir/icone-inegalites.svg" alt="" aria-hidden="true" />
+              <p class="opportunite__card-title">Inégalités parentales</p>
+              <p class="opportunite__card-desc">Les mères assument encore une plus grande part des coûts de la parentalité et des impacts sur leur carrière.</p>
+            </div>
+
+            <div class="opportunite__card">
+              <img class="opportunite__card-icon" src="images/naitre-et-grandir/icone-transition.svg" alt="" aria-hidden="true" />
+              <p class="opportunite__card-title">Transition exigeante</p>
+              <p class="opportunite__card-desc">qui demande des ressources considérables, autant sur les plans financier, émotionnel que professionnel.</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         DÉMARCHE DE RECHERCHE
+         ========================================== -->
+    <section class="section-demarche" id="demarche">
+      <div class="section__inner">
+
+        <h2 class="demarche__title reveal">Démarche de recherche</h2>
+
+        <div class="demarche__cards">
+
+          <div class="demarche__card reveal reveal-delay-1">
+            <div class="demarche__card-text">
+              <p class="demarche__card-title">Recherche documentaire</p>
+              <p class="demarche__card-desc">Réalisation d'une recherche documentaire sur la réalité de la maternité au Québec afin d'identifier les besoins des parents et les obstacles à surmonter.</p>
+            </div>
+            <img class="demarche__card-icon" src="images/naitre-et-grandir/icone-recherche-doc.svg" alt="" aria-hidden="true" />
+          </div>
+
+          <div class="demarche__card reveal reveal-delay-2">
+            <div class="demarche__card-text">
+              <p class="demarche__card-title">Ethnographie numérique</p>
+              <p class="demarche__card-desc">Des blogues et forums ont été analysés afin de mieux comprendre les besoins informationnels liés à la maternité.</p>
+            </div>
+            <img class="demarche__card-icon" src="images/naitre-et-grandir/icone-ethno.svg" alt="" aria-hidden="true" />
+          </div>
+
+          <div class="demarche__card reveal reveal-delay-3">
+            <div class="demarche__card-text">
+              <p class="demarche__card-title">Entretiens exploratoires</p>
+              <p class="demarche__card-desc">Des discussions ouvertes avec de nouvelles mères nous ont permis de mieux comprendre leur réalité et les défis de la parentalité d'aujourd'hui.</p>
+            </div>
+            <img class="demarche__card-icon" src="images/naitre-et-grandir/icone-entretiens.svg" alt="" aria-hidden="true" />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         RÉALITÉ D'HIER
+         ========================================== -->
+    <section class="section-realite" id="realite">
+
+      <div class="realite__header reveal">
+        <h2 class="realite__title">Réalité d'hier</h2>
+        <p class="realite__intro">Dans le but de comprendre l'évolution des dynamiques familiales au Québec depuis le 19e siècle, nous avons réalisé divers écosystèmes schématisant le passage d'une famille traditionnelle à la famille d'aujourd'hui.</p>
+      </div>
+
+      <div class="section__inner">
+        <div class="realite__carousel reveal reveal-delay-1" id="realiteCarousel" role="region" aria-label="Carrousel — Évolution des structures familiales">
+          <img class="realite__slide" src="images/naitre-et-grandir/famille-hier-1.svg" alt="Famille nucléaire Traditionnelle" draggable="false" />
+          <img class="realite__slide" src="images/naitre-et-grandir/famille-hier-2c.svg" alt="Famille élargie — Famille nucléaire — Soutien direct" draggable="false" />
+          <img class="realite__slide" src="images/naitre-et-grandir/famille-hier-3.svg" alt="Communauté — Famille élargie — Famille nucléaire" draggable="false" />
+        </div>
+      </div>
+
+      <div class="realite__hint">
+        <span class="realite__hint-text">Défiler vers la droite</span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 17l5-5-5-5M13 17l5-5-5-5" stroke="#7a7a7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+    </section>
+
+    <!-- ==========================================
+         RÉALITÉ D'AUJOURD'HUI
+         ========================================== -->
+    <section class="section-realite" id="realite-ajd">
+
+      <div class="realite__header reveal">
+        <h2 class="realite__title">Réalité d'aujourd'hui</h2>
+      </div>
+
+      <div class="section__inner">
+        <div class="realite__carousel reveal reveal-delay-1" id="realiteAjdCarousel" role="region" aria-label="Carrousel — Réalité familiale d'aujourd'hui">
+          <img class="realite__slide" src="images/naitre-et-grandir/famille-ajd-1.svg" alt="Familles d'aujourd'hui — Homoparentalité, Pluriparentalité, Monoparentalité" draggable="false" />
+          <img class="realite__slide" src="images/naitre-et-grandir/famille-ajd-2.svg" alt="Famille élargie Soutien direct — Familles d'aujourd'hui" draggable="false" />
+          <img class="realite__slide" src="images/naitre-et-grandir/famille-ajd-3.svg" alt="Ressources — Famille élargie — Familles d'aujourd'hui" draggable="false" />
+        </div>
+      </div>
+
+      <div class="realite__hint">
+        <span class="realite__hint-text">Défiler vers la droite</span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 17l5-5-5-5M13 17l5-5-5-5" stroke="#7a7a7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+    </section>
+
+    <!-- ==========================================
+         INSIGHTS PRINCIPAUX DE RECHERCHE
+         ========================================== -->
+    <section class="section-insights" id="insights">
+      <div class="section__inner">
+
+        <h2 class="insights__title reveal"><em>Insights</em> principaux de recherche</h2>
+
+        <!-- Ordre HTML : 01, 03, 02, 04, 05
+             → grille 2 col : ligne 1 = 01+03, ligne 2 = 02+04, ligne 3 = 05 -->
+        <div class="insights__grid">
+
+          <div class="insights__item reveal reveal-delay-1">
+            <span class="insights__num">01</span>
+            <p class="insights__text">La parentalité est passée d'un modèle collectif (famille élargie, soutien des proches, rôle traditionnel de la mère à la maison) à une réalité beaucoup plus individualisée</p>
+          </div>
+
+          <div class="insights__item reveal reveal-delay-2">
+            <span class="insights__num">03</span>
+            <p class="insights__text">Les ressources parentales sont nombreuses mais éclatées entre divers organismes, programmes et plateformes, ce qui complique l'accès à une information fiable et complète.</p>
+          </div>
+
+          <div class="insights__item reveal reveal-delay-1">
+            <span class="insights__num">02</span>
+            <p class="insights__text">En raison des stéréotypes de genre, la recherche d'information, la planification et l'organisation reposent encore largement sur les mères, accentuant les inégalités.</p>
+          </div>
+
+          <div class="insights__item reveal reveal-delay-2">
+            <span class="insights__num">04</span>
+            <p class="insights__text">Les parents doivent eux-mêmes repérer, filtrer et interpréter les informations pertinentes, ce qui augmente le stress et le sentiment d'être seuls face aux démarches.</p>
+          </div>
+
+          <div class="insights__item reveal reveal-delay-1">
+            <span class="insights__num">05</span>
+            <p class="insights__text">Les modèles de familles contemporaines (monoparentales, recomposées, LGBTQ+, immigrantes, etc.) sont peu pris en compte dans les ressources existantes.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PROBLÉMATIQUE ET OPPORTUNITÉ
+         ========================================== -->
+    <section class="section-problematique" id="problematique">
+      <div class="section__inner">
+        <div class="problematique__card reveal">
+          <h2 class="problematique__title">Problématique et opportunité identifiées</h2>
+          <p class="problematique__text">
+            Avec la diminution du soutien familial autrefois assuré par des familles élargies, la parentalité au Québec s'individualise et devient un parcours plus exigeant, où les ressources sont dispersées et où les mères assument encore une part majoritaire des responsabilités.
+            <br /><br />
+            Notre solution est née de cette réalité, avec l'objectif de simplifier l'expérience de la maternité et de la parentalité des québécois.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         CARTE D'EXPÉRIENCE
+         ========================================== -->
+    <section class="section-carte" id="carte">
+      <div class="section__inner">
+
+        <div class="carte__header reveal">
+          <h2 class="carte__title">Carte d'expérience identifiant les irrirants la maternité</h2>
+          <p class="carte__intro">Création d'une carte d'expérience regroupant les principaux apprentissages de la recherche afin d'identifier les points de friction et les moments clés où notre solution peut générer le plus de valeur.</p>
+        </div>
+
+        <div class="carte__image-wrap reveal reveal-delay-1">
+          <img class="carte__image"
+               src="images/naitre-et-grandir/carte-experience.svg"
+               alt="Carte d'expérience — Étapes de la maternité : Planification, Grossesse (1er, 2e, 3e trimestre), Naissance, Post-partum — avec besoins et irritants associés" />
+          <img class="carte__overlay" src="images/naitre-et-grandir/zone-intervention.svg" alt="" aria-hidden="true" />
+        </div>
+
+        <div class="carte__hint">
+          <span class="carte__hint-text">Survoler</span>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M17 15l-5-5-5 5M17 9l-5-5-5 5" stroke="#7a7a7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         OBJECTIFS VISÉS PAR LA SOLUTION
+         ========================================== -->
+    <section class="section-objectifs" id="objectifs">
+      <div class="section__inner">
+
+        <h2 class="objectifs__title reveal">Objectifs visés par la solution</h2>
+
+        <div class="objectifs__cards">
+
+          <div class="objectifs__card reveal reveal-delay-1">
+            <div class="objectifs__badge objectifs__badge--1">
+              <span class="objectifs__badge-num">1</span>
+            </div>
+            <p class="objectifs__card-text">Réduire la charge mentale liée à la recherche et la gestion de l'information parentale</p>
+          </div>
+
+          <div class="objectifs__card reveal reveal-delay-2">
+            <div class="objectifs__badge objectifs__badge--2">
+              <span class="objectifs__badge-num">2</span>
+            </div>
+            <p class="objectifs__card-text">Améliorer l'accès des familles à un soutien adéquat, adapté et disponible au bon moment</p>
+          </div>
+
+          <div class="objectifs__card reveal reveal-delay-3">
+            <div class="objectifs__badge objectifs__badge--3">
+              <span class="objectifs__badge-num">3</span>
+            </div>
+            <p class="objectifs__card-text">Soutenir une répartition plus équitable des responsabilités parentales</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PRINCIPES DE CONCEPTION
+         ========================================== -->
+    <section class="section-principes" id="principes">
+      <div class="section__inner">
+
+        <div class="principes__header reveal">
+          <h2 class="principes__title">Principes de conception</h2>
+          <p class="principes__intro">Ils ont servi de fil conducteur pour évaluer nos idées et de nous assurer que la solution répond aux besoins réels des futurs parents.</p>
+        </div>
+
+        <div class="principes__grid">
+
+          <div class="principes__card principes__card--1 reveal reveal-delay-1">
+            <span class="principes__num">01</span>
+            <p class="principes__text">Éviter d'ajouter une nouvelle source d'information dans un environnement où les parents sont déjà submergés.</p>
+          </div>
+
+          <div class="principes__card principes__card--2 reveal reveal-delay-2">
+            <span class="principes__num">02</span>
+            <p class="principes__text">Inspirer confiance aux parents en s'appuyant sur une source fiable et validée par des professionnels.</p>
+          </div>
+
+          <div class="principes__card principes__card--3 reveal reveal-delay-1">
+            <span class="principes__num">03</span>
+            <p class="principes__text">Concevoir une expérience inclusive et accessible, peu importe le niveau de littératie numérique, la langue ou la réalité des familles.</p>
+          </div>
+
+          <div class="principes__card principes__card--4 reveal reveal-delay-2">
+            <span class="principes__num">04</span>
+            <p class="principes__text">Veiller à ce que les futurs parents soient exposés à la plateforme au moment opportun de leur parcours, sans qu'ils aient besoin de la chercher activement.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SOLUTIONS DISCARTÉES
+         ========================================== -->
+    <section class="section-solutions" id="solutions">
+      <div class="section__inner">
+
+        <h2 class="solutions__title reveal">Solutions discartées</h2>
+        <p class="solutions__intro reveal reveal-delay-1">
+          Les constats issus de notre recherche ont rapidement révélé un besoin commun : mieux informer et accompagner les futurs parents tout au long de leur parcours. Nous avons donc exploré différentes façons de concevoir un service informationnel répondant à ce besoin, avant de converger vers la solution finale.
+        </p>
+
+        <div class="solutions__matrix-wrap reveal reveal-delay-2">
+          <div class="solutions__matrix">
+
+            <!-- Ligne d'en-tête -->
+            <div class="solutions__corner"></div>
+            <div class="solutions__col-header solutions__col-header--1">Éviter une nouvelle source</div>
+            <div class="solutions__col-header solutions__col-header--2">Inspirer confiance</div>
+            <div class="solutions__col-header solutions__col-header--3">Accessible à tous</div>
+            <div class="solutions__col-header solutions__col-header--4">Découverte au bon moment</div>
+
+            <!-- Idée 1 : Application mobile -->
+            <div class="solutions__idea-cell">
+              <div class="solutions__idea-icon" aria-hidden="true">
+                <img src="images/naitre-et-grandir/app-mobile.svg" width="60" height="60" alt="" />
+              </div>
+              <div>
+                <p class="solutions__idea-name">Idée 1 : Application mobile</p>
+                <p class="solutions__idea-desc">Application contenant de l'information et des ressources pour les parents</p>
+              </div>
+            </div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--red"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--yellow"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--yellow"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--yellow"></span></div>
+
+            <!-- Idée 2 : Compagnon vocal -->
+            <div class="solutions__idea-cell">
+              <div class="solutions__idea-icon" aria-hidden="true">
+                <img src="images/naitre-et-grandir/borne-info.svg" width="60" height="60" alt="" />
+              </div>
+              <div>
+                <p class="solutions__idea-name">Idée 2 : Compagnon vocal</p>
+                <p class="solutions__idea-desc">Appareil connecté (ex&nbsp;: Alexa) qui répond aux questions des parents</p>
+              </div>
+            </div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--green"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--green"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--red"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--green"></span></div>
+
+            <!-- Idée 3 : Borne d'information -->
+            <div class="solutions__idea-cell">
+              <div class="solutions__idea-icon" aria-hidden="true">
+                <img src="images/naitre-et-grandir/borne-info-new.svg" width="60" height="60" alt="" />
+              </div>
+              <div>
+                <p class="solutions__idea-name">Idée 3 : Borne d'information</p>
+                <p class="solutions__idea-desc">Présente dans les cliniques, hôpitaux et centres communautaires</p>
+              </div>
+            </div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--green"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--yellow"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--red"></span></div>
+            <div class="solutions__cell"><span class="solutions__dot solutions__dot--green"></span></div>
+
+          </div>
+        </div>
+
+        <!-- Légende -->
+        <div class="solutions__legend reveal reveal-delay-3">
+          <p class="solutions__legend-title">Légende</p>
+          <div class="solutions__legend-items">
+            <div class="solutions__legend-item">
+              <span class="solutions__legend-dot solutions__dot--green"></span>
+              Répond au principe
+            </div>
+            <div class="solutions__legend-item">
+              <span class="solutions__legend-dot solutions__dot--yellow"></span>
+              Répond partiellement
+            </div>
+            <div class="solutions__legend-item">
+              <span class="solutions__legend-dot solutions__dot--red"></span>
+              Ne répond pas
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SOLUTION NAÎTRE ET GRANDIR +
+         ========================================== -->
+    <section class="section-solution" id="solution">
+      <div class="solution__inner">
+
+        <div class="solution__text reveal">
+          <h2 class="solution__title">
+            Solution Naître et Grandir <span class="solution__title-plus">+</span>
+          </h2>
+          <p class="solution__desc">
+            Faire de l'application Naître et Grandir un outil plus complet, qui répond mieux aux besoins d'information spécifiques et de soutien des parents, au moment où ils en ont besoin.
+          </p>
+        </div>
+
+        <div class="solution__phone reveal reveal-delay-1">
+          <img src="images/naitre-et-grandir/iphone-ng-2.svg" alt="Aperçu de l'application Naître et Grandir +" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         NOS AJOUTS À L'APPLICATION
+         ========================================== -->
+    <section class="section-ajouts" id="ajouts">
+      <div class="section__inner">
+
+        <h2 class="ajouts__title reveal">Nos ajouts à l'application</h2>
+
+        <!-- En-têtes -->
+        <div class="ajouts__cols reveal">
+          <div class="ajouts__col-header">
+            <p class="ajouts__col-title">Naître et grandir</p>
+            <p class="ajouts__col-subtitle">Fonctionnalités actuelles</p>
+          </div>
+          <div class="ajouts__col-header">
+            <p class="ajouts__col-title">Naître et grandir <span class="ajouts__col-title-plus">+</span></p>
+            <p class="ajouts__col-subtitle">Fonctionnalités ajoutées</p>
+          </div>
+        </div>
+
+        <!-- Corps : grille partagée pour l'alignement des rangées -->
+        <div class="ajouts__body-grid reveal reveal-delay-1">
+
+          <!-- Rangée 1 -->
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-suivi.svg" alt="" /></div>
+            <p class="ajouts__item-text">Suivi personnalisé de la grossesse et du développement de l'enfant</p>
+          </div>
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-ia.svg" alt="" /></div>
+            <p class="ajouts__item-text">Assistant IA conversationnel</p>
+          </div>
+
+          <!-- Rangée 2 -->
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-bibliotheque.svg" alt="" /></div>
+            <p class="ajouts__item-text">Bibliothèque de contenus validés par des experts</p>
+          </div>
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-quiz.svg" alt="" /></div>
+            <p class="ajouts__item-text">Questionnaire d'onboarding</p>
+          </div>
+
+          <!-- Rangée 3 -->
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-recherche.svg" alt="" /></div>
+            <p class="ajouts__item-text">Moteur de recherche</p>
+          </div>
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-communaute.svg" alt="" /></div>
+            <p class="ajouts__item-text">Onglet communauté</p>
+          </div>
+
+          <!-- Rangée 4 -->
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-favoris.svg" alt="" /></div>
+            <p class="ajouts__item-text">Favoris et contenus sauvegardés</p>
+          </div>
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-famille.svg" alt="" /></div>
+            <p class="ajouts__item-text">Espace familiale partagé</p>
+          </div>
+
+          <!-- Rangée 5 (gauche seulement) -->
+          <div class="ajouts__item">
+            <div class="ajouts__icon" aria-hidden="true"><img src="images/naitre-et-grandir/icone-enfants.svg" alt="" /></div>
+            <p class="ajouts__item-text">Gestion de plusieurs profils d'enfants</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         ASSISTANT IA CONVERSATIONNEL
+         ========================================== -->
+    <section class="section-assistant-ia" id="assistant-ia">
+      <div class="section__inner">
+
+        <!-- En-tête -->
+        <div class="assistant-ia__header reveal">
+          <div class="assistant-ia__icon-wrap">
+            <img src="images/naitre-et-grandir/icone-ia.svg" alt="" class="assistant-ia__icon-img">
+          </div>
+          <h2 class="assistant-ia__title">Assistant IA conversationnel</h2>
+        </div>
+
+        <!-- Mockup téléphone + blocs texte -->
+        <div class="assistant-ia__mockup-area reveal">
+          <img
+            src="images/naitre-et-grandir/assistant-ia-mockup.svg"
+            alt="Mockup de la conversation avec l'assistant IA Naître et Grandir"
+            class="assistant-ia__phone">
+
+          <!-- Bloc texte 1 -->
+          <div class="assistant-ia__text-block assistant-ia__text-block--1">
+            <p class="assistant-ia__text">Ajout d'une assistance intelligente dans l'application qui centralise toute l'information au même endroit, pour guider les parents avec des contenus fiables, vérifiées et directement liés à leurs besoins informationnels.</p>
+          </div>
+
+          <!-- Bloc texte 2 -->
+          <div class="assistant-ia__text-block assistant-ia__text-block--2">
+            <p class="assistant-ia__text"><strong>Accessibilité intégrée :</strong> aucune compétence en lecture ou en écriture requise, l'interaction se fait à l'oral grâce à l'IA.</p>
+          </div>
+        </div>
+
+        <!-- Schéma écosystème IA -->
+        <div class="assistant-ia__ecosysteme reveal">
+          <p class="assistant-ia__schema-desc">Schéma illustrant le fonctionnement de l'assistant IA, qui puise l'information auprès de différentes sources fiables pour accompagner les parents grâce à des réponses personnalisées.</p>
+          <img
+            src="images/naitre-et-grandir/agent-conversationnel.svg"
+            alt="Schéma de l'agent conversationnel IA — sources reliées par des flèches vers les familles"
+            class="assistant-ia__schema-img">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         QUESTIONNAIRE D'ONBOARDING
+         ========================================== -->
+    <section class="section-questionnaire" id="questionnaire">
+      <div class="section__inner">
+
+        <!-- En-tête + intro -->
+        <div class="quest__top reveal">
+          <div class="quest__header">
+            <div class="quest__icon-wrap">
+              <img src="images/naitre-et-grandir/icone-quiz.svg" alt="" class="quest__icon-img">
+            </div>
+            <h2 class="quest__title">Questionnaire d'onboarding</h2>
+          </div>
+          <p class="quest__intro">Personnalisation de l'expérience dès l'inscription en fonction du profil parental afin d'adapter les recommandations et réponses de l'IA</p>
+        </div>
+
+        <!-- Mockups -->
+        <div class="quest__content reveal">
+          <img
+            src="images/naitre-et-grandir/questionnaire-mockup.svg"
+            alt="Mockup du questionnaire d'onboarding Naître et Grandir — 3 écrans montrant la personnalisation du profil parental"
+            class="quest__mockups">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ONGLET COMMUNAUTÉ -->
+    <section class="section-communaute" id="communaute">
+      <div class="section__inner">
+
+        <!-- En-tête -->
+        <div class="communaute__header reveal">
+          <div class="communaute__icon-wrap">
+            <img src="images/naitre-et-grandir/icone-communaute.svg" alt="" class="communaute__icon-img">
+          </div>
+          <h2 class="communaute__title">Onglet communauté</h2>
+        </div>
+
+        <p class="communaute__intro reveal">Espace pour connecter les parents et les futurs parents québécois de la même région afin d'échanger, se soutenir et partager des expériences.</p>
+
+        <!-- Corps : features + mockup -->
+        <div class="communaute__body reveal reveal-delay-1">
+
+          <!-- Fonctionnalités clés -->
+          <div class="communaute__features">
+            <p class="communaute__features-title">Fonctionnalités clés</p>
+            <div class="communaute__feature-list">
+              <div class="communaute__feature">
+                <span class="communaute__num communaute__num--1">1</span>
+                <p class="communaute__feature-text">Accéder à des événements entourant la parentalité</p>
+              </div>
+              <div class="communaute__feature">
+                <span class="communaute__num communaute__num--2">2</span>
+                <p class="communaute__feature-text">Bénéficier de conseils et de recommandations de parent à parent</p>
+              </div>
+              <div class="communaute__feature">
+                <span class="communaute__num communaute__num--3">3</span>
+                <p class="communaute__feature-text">Permettre de connecter avec des gens vivant la même réalité</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mockup téléphone -->
+          <div class="communaute__mockup-wrap">
+            <span class="communaute__scroll-hint">À défiler
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 8l5 5 5-5M7 13l5 5 5-5" stroke="#7a7a7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <!-- Mockup téléphone HTML scrollable -->
+            <div class="phone-mockup" aria-label="Aperçu de l'onglet Communauté">
+
+              <!-- Barre de statut -->
+              <div class="phone-mockup__status">
+                <span class="phone-mockup__time">9:41</span>
+                <svg width="25" height="13" viewBox="0 0 25 13" fill="none"><rect x="0.6" y="0.6" width="21" height="11.8" rx="3.4" stroke="#2b2b2b" stroke-width="1.2"/><rect x="2" y="2" width="17" height="9" rx="2" fill="#2b2b2b"/><path d="M22.5 4.5v4a2 2 0 0 0 0-4z" fill="#2b2b2b"/></svg>
+              </div>
+
+              <!-- En-tête de l'app -->
+              <div class="phone-mockup__header">
+                <div class="phone-mockup__icon-circle">
+                  <svg width="25" height="25" viewBox="0 0 25 25" fill="none"><circle cx="8.5" cy="9" r="3.5" stroke="#2b2b2b" stroke-width="1.4"/><path d="M2 21c0-3.6 2.9-6.5 6.5-6.5" stroke="#2b2b2b" stroke-width="1.4" stroke-linecap="round"/><circle cx="17" cy="9" r="3" stroke="#2b2b2b" stroke-width="1.4"/><path d="M13 21c0-3.2 1.8-5.8 4-7" stroke="#2b2b2b" stroke-width="1.4" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                  <div class="phone-mockup__app-title">Communauté</div>
+                  <div class="phone-mockup__app-subtitle">Là où les parents se retrouvent</div>
+                </div>
+              </div>
+
+              <!-- Zone défilante -->
+              <div class="phone-mockup__scroll-area">
+
+                <!-- Événements à venir -->
+                <div class="phone-mockup__section">
+                  <div class="phone-mockup__section-header">
+                    <span class="phone-mockup__section-title">Événements à venir</span>
+                    <span class="phone-mockup__see-all">Voir tout</span>
+                  </div>
+                  <div class="phone-event-card">
+                    <div class="phone-event-card__title">Rencontre futures mamans</div>
+                    <div class="phone-event-card__meta">
+                      <span class="phone-event-card__meta-item">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="2" width="13" height="12" rx="2" stroke="#2b2b2b" stroke-width="1.2"/><path d="M1 6h13M5 1v2M10 1v2" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        15 décembre à 14h00
+                      </span>
+                      <span class="phone-event-card__meta-item">
+                        <svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M6.5 1C4 1 2 3 2 5.5c0 3.5 4.5 8.5 4.5 8.5S11 9 11 5.5C11 3 9 1 6.5 1z" stroke="#2b2b2b" stroke-width="1.2"/><circle cx="6.5" cy="5.5" r="1.5" stroke="#2b2b2b" stroke-width="1.2"/></svg>
+                        Québec
+                      </span>
+                    </div>
+                    <div class="phone-event-card__footer">
+                      <span class="phone-event-card__participants">12 participants</span>
+                      <span class="phone-pill phone-pill--yellow">S'inscrire</span>
+                    </div>
+                  </div>
+                  <div class="phone-event-card">
+                    <div class="phone-event-card__title">Atelier portage bébé</div>
+                    <div class="phone-event-card__meta">
+                      <span class="phone-event-card__meta-item">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="2" width="13" height="12" rx="2" stroke="#2b2b2b" stroke-width="1.2"/><path d="M1 6h13M5 1v2M10 1v2" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        18 décembre à 10h30
+                      </span>
+                      <span class="phone-event-card__meta-item">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6" stroke="#2b2b2b" stroke-width="1.2"/><path d="M7.5 4v3.5l2.5 1.5" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        En ligne
+                      </span>
+                    </div>
+                    <div class="phone-event-card__footer">
+                      <span class="phone-event-card__participants">24 participants</span>
+                      <span class="phone-pill phone-pill--yellow">S'inscrire</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Publications récentes -->
+                <div class="phone-mockup__section">
+                  <div class="phone-mockup__section-header">
+                    <span class="phone-mockup__section-title">Publications récentes</span>
+                    <span class="phone-mockup__see-all">Explorer</span>
+                  </div>
+                  <div class="phone-pub-card">
+                    <div class="phone-pub-card__author">Sophie M.</div>
+                    <div class="phone-pub-card__meta">Futures mamans - Mai 2025 • Il y a 2h</div>
+                    <div class="phone-pub-card__text">Recommandations pour une sage-femme douce à Québec ?</div>
+                    <div class="phone-pub-card__actions">
+                      <span class="phone-pub-card__action">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13.5S1.5 9.5 1.5 5.5a4.5 4.5 0 0 1 6.5-4 4.5 4.5 0 0 1 6.5 4C14.5 9.5 8 13.5 8 13.5z" stroke="#6b6b6b" stroke-width="1.3"/></svg>
+                        8
+                      </span>
+                      <span class="phone-pub-card__action">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6l-4 3V3z" stroke="#6b6b6b" stroke-width="1.3"/></svg>
+                        15
+                      </span>
+                    </div>
+                  </div>
+                  <div class="phone-pub-card">
+                    <div class="phone-pub-card__author">Marie L.</div>
+                    <div class="phone-pub-card__meta">Yoga prénatal Québec • Il y a 5h</div>
+                    <div class="phone-pub-card__text">Super séance ! Vraiment aidant pour mon mal de dos 🙏</div>
+                    <div class="phone-pub-card__actions">
+                      <span class="phone-pub-card__action">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 13.5S1.5 9.5 1.5 5.5a4.5 4.5 0 0 1 6.5-4 4.5 4.5 0 0 1 6.5 4C14.5 9.5 8 13.5 8 13.5z" stroke="#6b6b6b" stroke-width="1.3"/></svg>
+                        23
+                      </span>
+                      <span class="phone-pub-card__action">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H6l-4 3V3z" stroke="#6b6b6b" stroke-width="1.3"/></svg>
+                        7
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mes groupes -->
+                <div class="phone-mockup__section" style="padding-bottom:20px">
+                  <div class="phone-mockup__section-header">
+                    <span class="phone-mockup__section-title">Mes groupes</span>
+                    <span class="phone-mockup__see-all">Explorer</span>
+                  </div>
+                  <div class="phone-group-card">
+                    <div>
+                      <div class="phone-group-card__name-row">
+                        <svg width="19" height="19" viewBox="0 0 19 19" fill="none"><circle cx="7" cy="7" r="3" stroke="#2b2b2b" stroke-width="1.2"/><path d="M1 17c0-3.3 2.7-6 6-6" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/><circle cx="13.5" cy="7" r="2.5" stroke="#2b2b2b" stroke-width="1.2"/><path d="M10 17c0-2.8 1.6-5 3.5-6" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        <span class="phone-group-card__name">Futures mamans en mai</span>
+                      </div>
+                      <div class="phone-group-card__desc">Mamans qui accouchent en mai 2025</div>
+                      <div class="phone-group-card__meta">234 membres • Groupe de soutien</div>
+                    </div>
+                    <div class="phone-group-card__actions">
+                      <span class="phone-pill phone-pill--green">Membre</span>
+                    </div>
+                  </div>
+                  <div class="phone-group-card">
+                    <div>
+                      <div class="phone-group-card__name-row">
+                        <svg width="19" height="19" viewBox="0 0 19 19" fill="none"><circle cx="9.5" cy="6.5" r="3" stroke="#2b2b2b" stroke-width="1.2"/><path d="M3 17c0-3.6 2.9-6.5 6.5-6.5S16 13.4 16 17" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        <span class="phone-group-card__name">Yoga prénatal Québec</span>
+                      </div>
+                      <div class="phone-group-card__desc">Stretching pré-accouchement</div>
+                      <div class="phone-group-card__meta">125 membres • Groupe de mise en forme</div>
+                    </div>
+                    <div class="phone-group-card__actions">
+                      <span class="phone-pill phone-pill--blue">Rejoindre</span>
+                    </div>
+                  </div>
+                  <div class="phone-group-card">
+                    <div>
+                      <div class="phone-group-card__name-row">
+                        <svg width="19" height="19" viewBox="0 0 19 19" fill="none"><circle cx="7" cy="7" r="3" stroke="#2b2b2b" stroke-width="1.2"/><path d="M1 17c0-3.3 2.7-6 6-6" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/><circle cx="13.5" cy="7" r="2.5" stroke="#2b2b2b" stroke-width="1.2"/><path d="M10 17c0-2.8 1.6-5 3.5-6" stroke="#2b2b2b" stroke-width="1.2" stroke-linecap="round"/></svg>
+                        <span class="phone-group-card__name">Allaitement &amp; Conseils</span>
+                      </div>
+                      <div class="phone-group-card__desc">Entraide sur l'allaitement</div>
+                      <div class="phone-group-card__meta">567 membres • Groupe de soutien</div>
+                    </div>
+                    <div class="phone-group-card__actions">
+                      <span class="phone-pill phone-pill--blue">Rejoindre</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- fin zone défilante -->
+
+              <!-- Barre de navigation -->
+              <div class="phone-mockup__nav">
+                <div class="phone-nav__tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#a0a0a0" stroke-width="1.4"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#a0a0a0" stroke-width="1.4"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#a0a0a0" stroke-width="1.4"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="#a0a0a0" stroke-width="1.4"/></svg>
+                  <span class="phone-nav__label">Suivi</span>
+                </div>
+                <div class="phone-nav__tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#a0a0a0" stroke-width="1.4"/><path d="M16 16l4 4" stroke="#a0a0a0" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  <span class="phone-nav__label">Recherche</span>
+                </div>
+                <div class="phone-nav__tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H8l-4 4V5z" stroke="#a0a0a0" stroke-width="1.4"/></svg>
+                  <span class="phone-nav__label">Assistant</span>
+                </div>
+                <div class="phone-nav__tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="8.5" r="3.5" stroke="#8cc8db" stroke-width="1.4"/><path d="M2 20c0-3.3 2.7-6 6-6" stroke="#8cc8db" stroke-width="1.4" stroke-linecap="round"/><circle cx="17" cy="8.5" r="3" stroke="#8cc8db" stroke-width="1.4"/><path d="M13 20c0-3 1.5-5 4-6" stroke="#8cc8db" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  <span class="phone-nav__label phone-nav__label--active">Communauté</span>
+                </div>
+                <div class="phone-nav__tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="7.5" r="4" stroke="#a0a0a0" stroke-width="1.4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#a0a0a0" stroke-width="1.4" stroke-linecap="round"/></svg>
+                  <span class="phone-nav__label">Compte</span>
+                </div>
+              </div>
+
+            </div><!-- fin phone-mockup -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTAGE DES RESPONSABILITÉS -->
+    <section class="section-partage" id="partage">
+      <div class="section__inner">
+
+        <!-- En-tête -->
+        <div class="partage__header reveal">
+          <div class="partage__icon-wrap">
+            <img src="images/naitre-et-grandir/icone-famille.svg" alt="" class="partage__icon-img">
+          </div>
+          <h2 class="partage__title">Partage des responsabilités</h2>
+        </div>
+
+        <p class="partage__intro reveal">Possibilité d'inviter d'autres adultes à rejoindre un espace familial (ex: co-parent, proche aidant, grand-parent) pour adapter le partage des informations.</p>
+
+        <!-- Illustrations -->
+        <div class="partage__illustrations reveal reveal-delay-1">
+          <div class="partage__card">
+            <img src="images/naitre-et-grandir/partage-1.svg" alt="Une personne seule consulte l'application">
+          </div>
+
+          <svg class="partage__arrow" width="56" height="20" viewBox="0 0 56 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 10H52M52 10L43 2M52 10L43 18" stroke="#0483c4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <div class="partage__card">
+            <img src="images/naitre-et-grandir/partage-2.svg" alt="Deux personnes consultent l'application ensemble">
+          </div>
+
+          <svg class="partage__arrow" width="56" height="20" viewBox="0 0 56 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 10H52M52 10L43 2M52 10L43 18" stroke="#0483c4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <div class="partage__card">
+            <img src="images/naitre-et-grandir/partage-3.svg" alt="Trois personnes consultent l'application ensemble">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BÉNÉFICES DE LA SOLUTION -->
+    <section class="section-benefices" id="benefices">
+      <div class="section__inner">
+
+        <h2 class="benefices__title reveal">Bénéfices de la solution</h2>
+
+        <!-- Deux cartes -->
+        <div class="benefices__cards reveal reveal-delay-1">
+
+          <!-- Pour les parents -->
+          <div class="benefices__card">
+            <div class="benefices__card-header">
+              <svg class="benefices__card-arrow" width="58" height="14" viewBox="0 0 58 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 7H54M54 7L48 1M54 7L48 13" stroke="#0483c4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p class="benefices__card-title">Pour les parents</p>
+            </div>
+            <div class="benefices__items">
+              <div>
+                <p class="benefices__item-label">Charge mentale ↓</p>
+                <p class="benefices__item-desc">Informations centralisées, adaptée à la réalité et au contexte familial</p>
+              </div>
+              <div>
+                <p class="benefices__item-label">Égalité ↑</p>
+                <p class="benefices__item-desc">Espace familial multi-profils et notifications partagées</p>
+              </div>
+              <div>
+                <p class="benefices__item-label">Confiance ↑</p>
+                <p class="benefices__item-desc">Contenu fiable et vérifié</p>
+              </div>
+              <div>
+                <p class="benefices__item-label">Soutien ↑</p>
+                <p class="benefices__item-desc">Recommandations personnalisées et ressources locales</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pour les acteurs -->
+          <div class="benefices__card">
+            <div class="benefices__card-header">
+              <svg class="benefices__card-arrow" width="58" height="14" viewBox="0 0 58 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 7H54M54 7L48 1M54 7L48 13" stroke="#0483c4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <p class="benefices__card-title">Pour les acteurs</p>
+            </div>
+            <div class="benefices__items">
+              <div>
+                <p class="benefices__item-label">Naître et grandir</p>
+                <p class="benefices__item-desc">Rayonnement accru et meilleure portée</p>
+              </div>
+              <div>
+                <p class="benefices__item-label">Ressources locales</p>
+                <p class="benefices__item-desc">Plus grande visibilité et hausse de participation aux activités et services</p>
+              </div>
+              <div>
+                <p class="benefices__item-label">Communauté</p>
+                <p class="benefices__item-desc">Parents mieux connectés, isolement réduit et liens sociaux renforcés</p>
+              </div>
+              <div>
+                <p class="benefices__item-label">Société</p>
+                <p class="benefices__item-desc">Parentalité mieux soutenue au Québec, impacts positifs sur la santé publique</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 4 piliers -->
+        <div class="benefices__pillars reveal reveal-delay-2">
+          <div class="benefices__pillar benefices__pillar--bleu">
+            <img src="images/naitre-et-grandir/check.svg" alt="" class="benefices__pillar-check">
+            <div class="benefices__pillar-tile">Éviter une nouvelle source</div>
+          </div>
+          <div class="benefices__pillar benefices__pillar--jaune">
+            <img src="images/naitre-et-grandir/check.svg" alt="" class="benefices__pillar-check">
+            <div class="benefices__pillar-tile">Inspirer confiance</div>
+          </div>
+          <div class="benefices__pillar benefices__pillar--rose">
+            <img src="images/naitre-et-grandir/check.svg" alt="" class="benefices__pillar-check">
+            <div class="benefices__pillar-tile">Accessible à tous</div>
+          </div>
+          <div class="benefices__pillar benefices__pillar--vert">
+            <img src="images/naitre-et-grandir/check.svg" alt="" class="benefices__pillar-check">
+            <div class="benefices__pillar-tile">Découverte au bon moment</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- UTILISATION DE L'IA -->
+    <section class="section-ia" id="ia">
+      <div class="section__inner">
+        <h2 class="ia__title reveal">Utilisation de l'intelligence artificielle</h2>
+        <div class="ia__items reveal reveal-delay-1">
+
+          <div class="ia__item">
+            <span class="ia__num">01</span>
+            <div class="ia__content">
+              <p class="ia__item-title">Recherche documentaire - Elicit et ChatGPT</p>
+              <p class="ia__item-desc">Aide à la recherche documentaire sur la problématique</p>
+            </div>
+          </div>
+
+          <div class="ia__item">
+            <span class="ia__num">02</span>
+            <div class="ia__content">
+              <p class="ia__item-title">Prototypage - Gemini, Figma make et Figma Design</p>
+              <p class="ia__item-desc">Aide à la conception et la création de mockups et d'interfaces utiles à la représentation des solutions</p>
+            </div>
+          </div>
+
+          <div class="ia__item">
+            <span class="ia__num">03</span>
+            <div class="ia__content">
+              <p class="ia__item-title">Entrevues semi-dirigées - NotebookLM et Claude</p>
+              <p class="ia__item-desc">Aide à la recherche documentaire sur la problématique</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- DÉCOUVRIR D'AUTRES PROJETS -->
+    <section class="section-autres">
+      <div class="section__inner">
+        <h2 class="autres__title reveal">Découvrir d'autres projets</h2>
+        <div class="autres__cards reveal reveal-delay-1">
+
+          <a class="autres__card" href="desjardins.html">
+            <img class="autres__card-img" src="images/projet1.png" alt="Projet Desjardins">
+            <div class="autres__card-body">
+              <p class="autres__card-name">Desjardins</p>
+              <p class="autres__card-desc">Améliorer l'intégration et la visibilité de l'offre immobilière de Desjardins au sein de son écosystème financier numérique.</p>
+              <div class="autres__card-tags">
+                <span class="autres__tag autres__tag--rose">Design UX</span>
+                <span class="autres__tag autres__tag--bleu">Design UI</span>
+                <span class="autres__tag autres__tag--orange">Recherche UX</span>
+                <span class="autres__tag autres__tag--vert">Architecture d'information</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="autres__card" href="bodi.html">
+            <img class="autres__card-img" src="images/projet3.png" alt="Projet BODI">
+            <div class="autres__card-body">
+              <p class="autres__card-name">BODI</p>
+              <p class="autres__card-desc">Écosystème de trois dispositifs connectés visant à accompagner les aînés et leurs proches aidants dans le maintien à domicile</p>
+              <div class="autres__card-tags">
+                <span class="autres__tag autres__tag--rose">Design UX</span>
+                <span class="autres__tag autres__tag--bleu">Design UI</span>
+                <span class="autres__tag autres__tag--orange">Recherche utilisateur</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="section-footer" id="contact">
+      <div class="section__inner">
+        <h2 class="footer__title reveal">Faisons connaissance !</h2>
+        <hr class="footer__line" />
+        <address class="footer__coords reveal reveal-delay-1">
+          <a href="mailto:sandrine.babineau@videotron.ca">sandrine.babineau@videotron.ca</a>
+          &nbsp;|&nbsp;
+          <a href="tel:+14189563771">(418) 956-3771</a>
+        </address>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="credit">
+    <p>Designé sur <span>Figma</span> · Codé avec <span>Claude Cowork</span></p>
+  </footer>
+
+  <!-- RETOUR EN HAUT -->
+  <button id="btn-haut" aria-label="Retour en haut de page">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M10 16V4M10 4L4 10M10 4L16 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <script>
+    // Hamburger
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu   = document.getElementById('mobile-menu');
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('is-open');
+      hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer  = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Back to top
+    const btnHaut = document.getElementById('btn-haut');
+    window.addEventListener('scroll', () => {
+      btnHaut.classList.toggle('visible', window.scrollY > 300);
+    });
+    btnHaut.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Carrousel — drag + inertie (fonction réutilisable)
+    function initCarousel(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      let isDown = false, startX = 0, startScroll = 0;
+      let velX = 0, lastX = 0, lastT = 0, rafId = null;
+
+      el.addEventListener('mousedown', (e) => {
+        isDown = true;
+        el.classList.add('is-grabbing');
+        startX = e.pageX;
+        startScroll = el.scrollLeft;
+        velX = 0; lastX = e.pageX; lastT = Date.now();
+        cancelAnimationFrame(rafId);
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        el.scrollLeft = startScroll - (e.pageX - startX);
+        const now = Date.now(), dt = now - lastT;
+        if (dt > 0) velX = (e.pageX - lastX) / dt * 12;
+        lastX = e.pageX; lastT = now;
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        el.classList.remove('is-grabbing');
+        const coast = () => {
+          if (Math.abs(velX) < 0.5) return;
+          el.scrollLeft -= velX;
+          velX *= 0.90;
+          rafId = requestAnimationFrame(coast);
+        };
+        coast();
+      });
+
+      // Empêche les clics parasites après drag
+      el.addEventListener('click', (e) => {
+        if (Math.abs(el.scrollLeft - startScroll) > 8) e.preventDefault();
+      }, true);
+    }
+    initCarousel('realiteCarousel');
+    initCarousel('realiteAjdCarousel');
+
+    // Side-nav active
+    const sections   = document.querySelectorAll('section[id]');
+    const navItems   = document.querySelectorAll('.side-nav__item');
+    const navObs     = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navItems.forEach(i => i.classList.remove('active'));
+          const active = document.querySelector(`.side-nav__item[href="#${e.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => navObs.observe(s));
+
+    // Forcer le point Contact actif quand on atteint le bas de la page
+    window.addEventListener('scroll', () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 80) {
+        navItems.forEach(i => i.classList.remove('active'));
+        const contactItem = document.querySelector('.side-nav__item[href="#contact"]');
+        if (contactItem) contactItem.classList.add('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

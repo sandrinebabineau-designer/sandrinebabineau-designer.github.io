@@ -268,7 +268,7 @@
       font-size: var(--fs-body-lg);
       font-weight: var(--fw-regular);
       color: var(--color-black);
-      line-height: 1.8;
+      line-height: 1.5;
     }
 
     .hero__meta-sep {
@@ -331,7 +331,7 @@
        ============================================= */
     .stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--space-gap-card);
       margin-bottom: var(--space-gap-lg);
     }
@@ -371,11 +371,12 @@
     }
 
     .stats__source {
-      font-family: 'Inter', sans-serif;
+      font-family: inherit;
       font-size: var(--fs-caption);
       font-weight: var(--fw-regular);
       color: var(--color-black);
     }
+    .stats__source em { font-style: italic; font-weight: var(--fw-regular); }
 
     /* Problem / Response blocks */
     .context-block { margin-bottom: var(--space-gap-lg); }
@@ -532,11 +533,11 @@
       margin-bottom: var(--space-gap-lg);
     }
 
-    /* Wrapper around left photo for "C'est moi!" annotation */
+    /* Wrapper around left photo */
     .analysis-photos__left {
       position: relative;
       flex-shrink: 0;
-      width: 360px;
+      width: 311px;
     }
 
     .analysis-photos__img {
@@ -562,7 +563,7 @@
     /* "C'est moi !" annotation — SVG overlay to the left of the photo */
     .cest-moi {
       position: absolute;
-      left: -133px;
+      left: -149px;
       top: 130px;
       width: 218px;
       height: 165px;
@@ -1374,7 +1375,7 @@
        ============================================= */
     @media (max-width: 1024px) {
       :root {
-        --space-section-x: 48px;
+        --space-section-x: 36px;
         --fs-h1: 48px;
       }
 
@@ -1386,12 +1387,14 @@
       .nav__mobile-links { padding-left: var(--space-section-x); padding-right: var(--space-section-x); }
 
       /* Hero */
-      .hero { padding: 60px var(--space-section-x); }
-      .hero__image { width: 280px; }
-      .hero__image img { width: 240px; }
+      .hero__inner { gap: 40px; }
+      .hero__content { flex: 1 1 auto; width: 100%; min-width: 0; }
+      .hero__image { flex: 0 0 auto; }
+      .hero__image img { width: 220px; }
 
       /* Stats */
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .stats__card { min-height: auto; }
 
       /* Methods */
       .methods { grid-template-columns: repeat(2, 1fr); }
@@ -1407,13 +1410,11 @@
       /* Ecosystem */
       .ecosystem { flex-direction: column; gap: 40px; }
       .ecosystem__left { width: 100%; }
-      .ecosystem__right { grid-template-columns: 1fr 1fr; }
-
-      /* Insights */
-      /* insights: already 1 col */
+      .ecosystem__right { margin-right: 0; }
 
       /* Principles */
       .principles { grid-template-columns: repeat(2, 1fr); }
+      .principle { min-height: auto; }
 
       /* Benefits */
       .benefits-principles { grid-template-columns: repeat(2, 1fr); }
@@ -1427,6 +1428,14 @@
       .scenario:nth-child(-n+3) { grid-column: span 1; }
       .scenario:nth-child(4) { grid-column: auto; }
       .scenario:nth-child(5) { grid-column: auto; }
+
+      /* Objectives */
+      .objectives { grid-template-columns: repeat(2, 1fr); }
+      .objective { min-height: auto; }
+
+      /* Solution BODI */
+      .solution-bodi__layout { gap: 36px; }
+      .solution-bodi__visuals { width: 320px; }
     }
 
     /* =============================================
@@ -1434,10 +1443,10 @@
        ============================================= */
     @media (max-width: 768px) {
       :root {
-        --space-section-x: 24px;
+        --space-section-x: 20px;
         --space-section-y: 32px;
-        --fs-h1: 36px;
-        --fs-h2: 26px;
+        --fs-h1: 32px;
+        --fs-h2: 24px;
         --fs-body-lg: 17px;
       }
 
@@ -1446,15 +1455,19 @@
       .nav__mobile-links { padding: 12px var(--space-section-x) 20px; gap: 16px; }
 
       /* Hero */
-      .hero { padding: 40px var(--space-section-x); }
-      .hero__inner { flex-direction: column; gap: 32px; }
+      .hero__inner { flex-direction: column; gap: 28px; padding: 36px var(--space-section-x) 20px; }
+      .hero__content { flex: 1; width: 100%; }
       .hero__image { display: none; }
-      .hero__meta { flex-direction: column; gap: 20px; }
+      .hero__meta { flex-direction: column; gap: 16px; }
       .hero__meta-sep { display: none; }
-      .hero__description { margin-bottom: 32px; }
+      .hero__meta-item--chronologie,
+      .hero__meta-item--disciplines,
+      .hero__meta-item--equipe { width: auto; }
+      .hero__description { margin-bottom: 24px; }
 
       /* Stats */
       .stats { grid-template-columns: 1fr; }
+      .stats__card { min-height: auto; }
 
       /* Methods */
       .methods { grid-template-columns: 1fr; }
@@ -1462,16 +1475,17 @@
       /* Analysis */
       .analysis-photos__img--small,
       .analysis-photos__img--large { height: 200px; }
-      .cest-moi { width: 140px; height: 105px; }
+      .cest-moi { display: none; }
       .analysis-columns { grid-template-columns: 1fr; }
 
-      /* Ecosystem — already stacked on tablet, nothing extra needed */
+      /* Ecosystem */
+      .ecosystem__right { margin-right: 0; }
 
       /* Solution BODI */
       .solution-bodi__layout { flex-direction: column; gap: 32px; }
       .solution-bodi__visuals { width: 100%; }
       .solution-bodi__wall-img { width: 100%; }
-      .solution-bodi__features { min-height: auto; padding-top: 0; gap: 32px; justify-content: flex-start; }
+      .solution-bodi__features { min-height: auto; padding-top: 0; gap: 28px; justify-content: flex-start; }
       .solution-bodi__feature-content { max-width: 100%; }
 
       /* Insights */
@@ -1479,13 +1493,20 @@
 
       /* Objectives */
       .objectives { grid-template-columns: 1fr; }
+      .objective { min-height: auto; }
+
+      /* Principles */
+      .principles { grid-template-columns: repeat(2, 1fr); }
+      .principle { min-height: auto; padding: 16px; }
 
       /* Solutions table */
       .solutions-table { font-size: 14px; overflow-x: auto; display: block; }
       .solutions-table th, .solutions-table td { padding: 10px 8px; }
+      .solution-row__icon { width: 60px; height: 60px; }
 
       /* Benefits */
       .benefits { grid-template-columns: 1fr; }
+      .benefit-card { min-height: auto; }
       .benefits-principles { grid-template-columns: repeat(2, 1fr); }
 
       /* App */
@@ -1501,6 +1522,10 @@
 
       /* Other projects */
       .other-projects { grid-template-columns: 1fr; }
+      .project-card__title { font-size: 26px; }
+
+      /* Contact */
+      .contact__title { font-size: 22px; }
 
       /* Back to top */
       #btn-haut { bottom: 24px; right: 24px; width: 46px; height: 46px; }
@@ -1587,6 +1612,69 @@
     .reveal-delay-3 { transition-delay: 0.36s; }
     .reveal-delay-4 { transition-delay: 0.48s; }
   </style>
+  <style>
+    .credit { text-align: center; padding: 20px 0 28px; font-size: 11px; color: rgba(0,0,0,0.5); letter-spacing: 0.04em; }
+    .credit span { font-weight: 500; color: rgba(0,0,0,0.65); }
+  </style>
+  <style>
+    /* ---- ZOOM ÉCOSYSTÈMES ---- */
+    .ecosystem__synthese,
+    .ecosystem__bodi { cursor: zoom-in; transition: opacity 0.15s; }
+    .ecosystem__synthese:hover,
+    .ecosystem__bodi:hover { opacity: 0.88; }
+    .ecosystem__zoom-hint {
+      margin-top: 6px; font-size: 12px; color: #1b6aaa;
+      text-align: left; user-select: none; cursor: pointer;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .ecosystem__zoom-hint:hover { color: #0d3f66; }
+    .zoom-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.88);
+      flex-direction: column; align-items: center; justify-content: center;
+    }
+    .zoom-overlay.active { display: flex; }
+    .zoom-canvas {
+      position: relative; width: 92vw; height: 78vh;
+      overflow: hidden; border-radius: 8px; background: #fff; cursor: grab;
+    }
+    .zoom-canvas.dragging { cursor: grabbing; }
+    .zoom-overlay__img {
+      position: absolute; top: 0; left: 0; width: 100%; height: auto;
+      transform-origin: 0 0; user-select: none; -webkit-user-drag: none; pointer-events: none;
+    }
+    .zoom-overlay__bar {
+      display: flex; align-items: center; gap: 12px; margin-top: 16px;
+    }
+    .zoom-ctrl-btn {
+      background: rgba(255,255,255,0.18); border: none; color: #fff;
+      font-size: 20px; width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s; line-height: 1;
+    }
+    .zoom-ctrl-btn:hover { background: rgba(255,255,255,0.32); }
+    .zoom-hint-text { color: rgba(255,255,255,0.55); font-size: 12px; user-select: none; }
+    .zoom-overlay__header {
+      width: 92vw; display: flex; justify-content: flex-end; margin-bottom: 8px;
+    }
+    .zoom-overlay__close {
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      font-size: 22px; width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .zoom-overlay__close:hover { background: rgba(255,255,255,0.28); }
+  </style>
+
+  <!-- Meta tags OpenGraph (partage sur réseaux sociaux) -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="BODI — Sandrine Babineau" />
+  <meta property="og:description" content="Projet BODI : écosystème de dispositifs connectés pour accompagner les aînés dans le maintien à domicile." />
+  <meta property="og:image"       content="https://sandrinebabineau-designer.github.io/images/og-image.png" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="BODI — Sandrine Babineau" />
+  <meta name="twitter:description" content="Projet BODI : écosystème de dispositifs connectés pour accompagner les aînés dans le maintien à domicile." />
+  <meta name="twitter:image"      content="https://sandrinebabineau-designer.github.io/images/og-image.png" />
 </head>
 <body>
 
@@ -1685,16 +1773,12 @@
           <article class="stats__card" role="listitem">
             <span class="stats__number" aria-label="25 pourcent">25%</span>
             <p class="stats__text">des Québécois auront 65 ans et plus d'ici 2031</p>
-            <p class="stats__source">Institut de la statistique du Québec, 2025</p>
+            <p class="stats__source" style="font-size:11px;">Institut de la statistique du Québec. (2025). <em>Vitrine sur le vieillissement de la population et les personnes aînées.</em> <a href="https://statistique.quebec.ca" target="_blank" style="color:inherit;">statistique.quebec.ca</a></p>
           </article>
           <article class="stats__card" role="listitem">
             <span class="stats__number" aria-label="71 pourcent">71%</span>
             <p class="stats__text">des Québécois de 75 ans et plus souhaitent demeurer à domicile</p>
-            <p class="stats__source">SHAW 2022</p>
-          </article>
-          <article class="stats__card" role="listitem">
-            <span class="stats__icon" aria-hidden="true">↑</span>
-            <p class="stats__text">Demande en hausse, places en baisse, coûts en hausse dans les résidences pour aînés</p>
+            <p class="stats__source" style="font-size:11px;">SHAW, M. L. (2022). <em>Passer ses belles années à la maison : développer les services de maintien à domicile au Québec.</em> Institut économique de Montréal.</p>
           </article>
           <article class="stats__card" role="listitem">
             <span class="stats__icon" aria-hidden="true">↑</span>
@@ -1736,7 +1820,7 @@
               <p class="method-card__title">Entretiens semi-dirigés</p>
               <p class="method-card__desc">Donner la parole aux aînés et à leurs proches aidants pour explorer leurs besoins quotidiens et révéler des aspects difficilement perceptibles à travers l'observation seule</p>
             </div>
-            <img class="method-card__icon" src="https://www.figma.com/api/mcp/asset/a005559a-01d2-4c10-8a02-2dc01c3b6eaf" alt="" aria-hidden="true" style="width:52px;height:52px;" />
+            <img class="method-card__icon" src="images/bodi/entretiens.svg" alt="" aria-hidden="true" style="width:52px;height:52px;" />
           </article>
 
           <article class="method-card">
@@ -1744,7 +1828,7 @@
               <p class="method-card__title">Observation non participante</p>
               <p class="method-card__desc">Observer le quotidien des aînés et de leurs proches aidants afin d'identifier leurs routines, leurs interactions et les contraintes souvent invisibles</p>
             </div>
-            <img class="method-card__icon" src="https://www.figma.com/api/mcp/asset/ee5f5353-3325-4423-8c98-c63797da8781" alt="" aria-hidden="true" style="width:52px;height:52px;" />
+            <img class="method-card__icon" src="images/bodi/observation-np.svg" alt="" aria-hidden="true" style="width:52px;height:52px;" />
           </article>
 
           <article class="method-card">
@@ -1752,7 +1836,7 @@
               <p class="method-card__title">Observation participante</p>
               <p class="method-card__desc">S'immerger dans leur réalité pour mieux comprendre leur relation, leurs dynamiques et la fréquence de leurs interactions</p>
             </div>
-            <img class="method-card__icon" src="https://www.figma.com/api/mcp/asset/0d330d34-cce9-46a5-92c8-2bc976365e82" alt="" aria-hidden="true" style="width:52px;height:41px;" />
+            <img class="method-card__icon" src="images/bodi/observation-p.svg" alt="" aria-hidden="true" style="width:52px;height:41px;" />
           </article>
 
           <article class="method-card">
@@ -1760,7 +1844,7 @@
               <p class="method-card__title">Photographie participative</p>
               <p class="method-card__desc">Explorer le quotidien des aînés à travers leur propre regard pour révéler des réalités difficiles à exprimer autrement</p>
             </div>
-            <img class="method-card__icon" src="https://www.figma.com/api/mcp/asset/74ec1c5b-6a4a-44f0-b704-cd7018c65eda" alt="" aria-hidden="true" style="width:50px;height:50px;" />
+            <img class="method-card__icon" src="images/bodi/photographie.svg" alt="" aria-hidden="true" style="width:50px;height:50px;" />
           </article>
 
           <article class="method-card">
@@ -1768,7 +1852,7 @@
               <p class="method-card__title">Questionnaire</p>
               <p class="method-card__desc">Valider et quantifier les tendances observées afin de mieux cerner les besoins et les difficultés vécues.</p>
             </div>
-            <img class="method-card__icon" src="https://www.figma.com/api/mcp/asset/a5e5fe18-20ac-4087-a12f-883480e37cbf" alt="" aria-hidden="true" style="width:52px;height:40px;" />
+            <img class="method-card__icon" src="images/bodi/questionnaire-icon.svg" alt="" aria-hidden="true" style="width:52px;height:40px;" />
           </article>
 
         </div>
@@ -1787,8 +1871,8 @@
           <!-- Left photo with "C'est moi !" annotation -->
           <div class="analysis-photos__left">
             <img class="analysis-photos__img analysis-photos__img--small"
-                 src="images/bodi/photo-equipe.png"
-                 alt="Membres de l'équipe travaillant sur un diagramme d'affinité manuel" />
+                 src="images/bodi/photo-moi.svg"
+                 alt="Sandrine travaillant sur un diagramme d'affinité manuel" />
             <img class="cest-moi"
                  src="images/bodi/cest-moi.svg"
                  alt=""
@@ -1804,7 +1888,7 @@
           <div>
             <h3 class="analysis-col__header">Proches aidants</h3>
             <div class="analysis-col__cards">
-              <div class="chip chip--purple">« Il faut toujours êtres alerte, tout anticiper, tout prévoir »</div>
+              <div class="chip chip--purple">« Il faut toujours être alerte, tout anticiper, tout prévoir »</div>
               <div class="chip chip--purple">
                 <strong>Ressentis positifs</strong>
                 <ul>
@@ -1867,16 +1951,20 @@
               <h2 class="ecosystem__left-subtitle" id="ecosysteme-title">Schématisation des données</h2>
               <p class="ecosystem__left-desc">Écosystème réalisé pour schématiser nos constats et comprendre la relation entre les différents acteurs, ainsi que leurs rôles, leurs besoins et leurs ressentis.</p>
             </div>
-            <img class="ecosystem__synthese"
+            <img class="ecosystem__synthese" id="ecosysteme-synthese-img"
                  src="images/bodi/ecosysteme-synthese.svg"
-                 alt="Diagramme d'observations et d'hypothèses — maintien à domicile selon la présence d'un proche aidant" />
+                 alt="Diagramme d'observations et d'hypothèses — maintien à domicile selon la présence d'un proche aidant"
+                 title="Cliquer pour zoomer" />
+            <p class="ecosystem__zoom-hint" id="ecosysteme-synthese-hint">Cliquer pour zoomer</p>
           </div>
 
           <!-- Droite : écosystème BODI -->
           <div class="ecosystem__right">
-            <img class="ecosystem__bodi"
+            <img class="ecosystem__bodi" id="ecosysteme-bodi-img"
                  src="images/bodi/ecosysteme-bodi.svg"
-                 alt="Écosystème BODI — relations entre l'aîné, le proche aidant et les services externes" />
+                 alt="Écosystème BODI — relations entre l'aîné, le proche aidant et les services externes"
+                 title="Cliquer pour zoomer" />
+            <p class="ecosystem__zoom-hint" id="ecosysteme-bodi-hint" style="margin-left: 520px;">Cliquer pour zoomer</p>
           </div>
 
         </div>
@@ -1943,11 +2031,11 @@
     <section class="section section--white" aria-labelledby="principes-title">
       <div class="section__inner">
         <h2 class="section__title" id="principes-title">Principes de conception</h2>
-        <p class="section__intro">Ils ont servi de fil conducteur nous ont permis d'évaluer nos idées et de nous assurer que la solution répondait aux besoins réels des aînés et de leurs proches aidants.</p>
+        <p class="section__intro">Ils ont servi de fil conducteur pour évaluer nos idées et nous assurer que la solution répondait aux besoins réels des aînés et de leurs proches aidants.</p>
         <div class="principles" role="list">
-          <div class="principle chip--yellow" role="listitem">Prendre en compte les limitations liées au vieillissement (vision, audition, motricité, mémoire ou littératie numérique).</div>
-          <div class="principle chip--purple" role="listitem">Soutenir le maintien à domicile sans compromettre l'autonomie des aînés ni leur sentiment d'indépendance.</div>
-          <div class="principle chip--green" role="listitem">S'intégrer naturellement au quotidien des aînés et de leurs proches afin de devenir un outil utile et non une contrainte supplémentaire.</div>
+          <div class="principle chip--yellow" role="listitem">Prendre en compte les limitations liées au vieillissement.</div>
+          <div class="principle chip--purple" role="listitem">Préserver l'autonomie sans compromettre l'indépendance.</div>
+          <div class="principle chip--green" role="listitem">S'intégrer naturellement au quotidien des aînés et de leurs proches.</div>
           <div class="principle chip--blue" role="listitem">Être utile et bénéfique autant pour les aînés que leurs proches.</div>
         </div>
       </div>
@@ -2278,13 +2366,13 @@
       <div class="section__inner">
         <h2 class="section__title section__title--black" id="autres-title" style="margin-bottom: 48px;">Découvrir d'autres projets</h2>
         <div class="other-projects">
-          <a href="#" class="project-card" aria-label="Voir le projet Naître et Grandir +">
+          <a href="naitre-et-grandir.html" class="project-card" aria-label="Voir le projet Naître et Grandir +">
             <div class="project-card__img-wrapper">
               <img src="images/projet2.png" alt="Aperçu du projet Naître et Grandir +" />
             </div>
             <div class="project-card__body">
               <h3 class="project-card__title">Naître et Grandir +</h3>
-              <p class="project-card__desc">Assistant intelligent de Naître et Grandir visant à centraliser l'information périnatale et à accompagner les parents à chaque étape de la parentalité</p>
+              <p class="project-card__desc">Assistant intelligent visant à centraliser l'information périnatale et à accompagner les parents à chaque étape de la parentalité</p>
               <div class="tags">
                 <span class="tag tag--rose">Design UX</span>
                 <span class="tag tag--bleu">Design UI</span>
@@ -2293,7 +2381,7 @@
               </div>
             </div>
           </a>
-          <a href="#" class="project-card" aria-label="Voir le projet Desjardins">
+          <a href="desjardins.html" class="project-card" aria-label="Voir le projet Desjardins">
             <div class="project-card__img-wrapper">
               <img src="images/projet1.png" alt="Aperçu du projet Desjardins" />
             </div>
@@ -2318,7 +2406,7 @@
     <section class="section section--white" id="contact" aria-labelledby="contact-title">
       <div class="section__inner">
         <div class="contact__border">
-          <h2 class="contact__title" id="contact-title">Curieux d'en savoir plus ?</h2>
+          <h2 class="contact__title" id="contact-title">Faisons connaissance !</h2>
           <div class="contact__line" aria-hidden="true"></div>
           <address class="contact__coords" style="font-style: normal;">
             <a href="mailto:sandrine.babineau@videotron.ca">sandrine.babineau@videotron.ca</a> | <a href="tel:+14189563771">(418) 956-3771</a>
@@ -2365,13 +2453,34 @@
     </a>
     <a class="side-nav__item" href="#contact">
       <span class="side-nav__dot"></span>
-      <span class="side-nav__label">Contact</span>
+      <span class="side-nav__label">Faire connaissance</span>
     </a>
   </nav>
+
+
+  <footer class="credit">
+    <p>Designé sur <span>Figma</span> · Codé avec <span>Claude Cowork</span></p>
+  </footer>
 
   <!-- ==========================================
        BOUTON RETOUR EN HAUT
        ========================================== -->
+  <!-- LIGHTBOX ZOOM -->
+  <div class="zoom-overlay" id="zoom-overlay" role="dialog" aria-modal="true" aria-label="Vue agrandie">
+    <div class="zoom-overlay__header">
+      <button class="zoom-overlay__close" id="zoom-close" aria-label="Fermer">&#10005;</button>
+    </div>
+    <div class="zoom-canvas" id="zoom-canvas">
+      <img class="zoom-overlay__img" id="zoom-img" src="" alt="" draggable="false" />
+    </div>
+    <div class="zoom-overlay__bar">
+      <button class="zoom-ctrl-btn" id="zoom-out" aria-label="Dézoomer">&#8722;</button>
+      <button class="zoom-ctrl-btn" id="zoom-reset" aria-label="Réinitialiser" style="font-size:13px;width:52px;border-radius:20px">Ajuster</button>
+      <button class="zoom-ctrl-btn" id="zoom-in" aria-label="Zoomer">&#43;</button>
+      <span class="zoom-hint-text">· Molette ou glisser pour naviguer</span>
+    </div>
+  </div>
+
   <button
     id="btn-haut"
     onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
@@ -2445,7 +2554,7 @@
             });
           }
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.1 });
 
       sections.forEach(function (id) {
         var el = document.getElementById(id);
@@ -2507,6 +2616,107 @@
         });
       });
     })();
+  </script>
+
+  <script>
+    // =============================================
+    // ZOOM LIGHTBOX — pan + zoom fluide
+    // =============================================
+    (function () {
+      var overlay = document.getElementById('zoom-overlay');
+      var canvas  = document.getElementById('zoom-canvas');
+      var zoomImg = document.getElementById('zoom-img');
+      var scale = 1, tx = 0, ty = 0;
+      var minScale = 0.5, maxScale = 8;
+
+      function applyTransform() {
+        zoomImg.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+      }
+      function zoomAt(cx, cy, factor) {
+        var newScale = Math.min(maxScale, Math.max(minScale, scale * factor));
+        tx = cx - (cx - tx) * (newScale / scale);
+        ty = cy - (cy - ty) * (newScale / scale);
+        scale = newScale;
+        applyTransform();
+      }
+      function fitToCanvas() {
+        scale = 1; tx = 0; ty = 0; applyTransform();
+        requestAnimationFrame(function () {
+          var cw = canvas.offsetWidth, ch = canvas.offsetHeight;
+          var rect = zoomImg.getBoundingClientRect();
+          var natW = rect.width || cw, natH = rect.height || ch;
+          scale = Math.min(cw / natW, ch / natH);
+          tx = (cw - natW * scale) / 2;
+          ty = (ch - natH * scale) / 2;
+          applyTransform();
+        });
+      }
+      function openZoom(srcImg) {
+        zoomImg.src = srcImg.src;
+        zoomImg.alt = srcImg.alt;
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (zoomImg.complete && zoomImg.naturalWidth) { fitToCanvas(); }
+        else { zoomImg.onload = fitToCanvas; }
+      }
+      function closeZoom() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      // Écosystème synthèse
+      document.getElementById('ecosysteme-synthese-img').addEventListener('click', function () { openZoom(this); });
+      document.getElementById('ecosysteme-synthese-hint').addEventListener('click', function () { openZoom(document.getElementById('ecosysteme-synthese-img')); });
+      // Écosystème BODI
+      document.getElementById('ecosysteme-bodi-img').addEventListener('click', function () { openZoom(this); });
+      document.getElementById('ecosysteme-bodi-hint').addEventListener('click', function () { openZoom(document.getElementById('ecosysteme-bodi-img')); });
+
+      document.getElementById('zoom-close').addEventListener('click', closeZoom);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeZoom(); });
+      document.getElementById('zoom-in').addEventListener('click',    function(e){ e.stopPropagation(); zoomAt(canvas.offsetWidth/2, canvas.offsetHeight/2, 1.4); });
+      document.getElementById('zoom-out').addEventListener('click',   function(e){ e.stopPropagation(); zoomAt(canvas.offsetWidth/2, canvas.offsetHeight/2, 1/1.4); });
+      document.getElementById('zoom-reset').addEventListener('click', function(e){ e.stopPropagation(); fitToCanvas(); });
+
+      canvas.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        var rect = canvas.getBoundingClientRect();
+        zoomAt(e.clientX - rect.left, e.clientY - rect.top, e.deltaY < 0 ? 1.12 : 1/1.12);
+      }, { passive: false });
+
+      var dragging = false, dragX = 0, dragY = 0;
+      canvas.addEventListener('mousedown', function (e) {
+        dragging = true; dragX = e.clientX - tx; dragY = e.clientY - ty;
+        canvas.classList.add('dragging'); e.preventDefault();
+      });
+      window.addEventListener('mousemove', function (e) {
+        if (!dragging) return; tx = e.clientX - dragX; ty = e.clientY - dragY; applyTransform();
+      });
+      window.addEventListener('mouseup', function () { dragging = false; canvas.classList.remove('dragging'); });
+
+      var lastTouches = null;
+      canvas.addEventListener('touchstart', function (e) { lastTouches = e.touches; e.preventDefault(); }, { passive: false });
+      canvas.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+        var t = e.touches;
+        if (t.length === 1 && lastTouches && lastTouches.length === 1) {
+          tx += t[0].clientX - lastTouches[0].clientX;
+          ty += t[0].clientY - lastTouches[0].clientY;
+          applyTransform();
+        } else if (t.length === 2 && lastTouches && lastTouches.length === 2) {
+          var rect = canvas.getBoundingClientRect();
+          var mx = (t[0].clientX + t[1].clientX) / 2 - rect.left;
+          var my = (t[0].clientY + t[1].clientY) / 2 - rect.top;
+          var prevDist = Math.hypot(lastTouches[0].clientX - lastTouches[1].clientX, lastTouches[0].clientY - lastTouches[1].clientY);
+          var newDist  = Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+          if (prevDist > 0) zoomAt(mx, my, newDist / prevDist);
+          var prevMX = (lastTouches[0].clientX + lastTouches[1].clientX) / 2 - rect.left;
+          var prevMY = (lastTouches[0].clientY + lastTouches[1].clientY) / 2 - rect.top;
+          tx += mx - prevMX; ty += my - prevMY; applyTransform();
+        }
+        lastTouches = t;
+      }, { passive: false });
+      canvas.addEventListener('touchend', function (e) { lastTouches = e.touches.length ? e.touches : null; });
+    }());
   </script>
 
 </body>
