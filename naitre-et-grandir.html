@@ -568,6 +568,11 @@
       color: #7a7a7a;
     }
 
+    @media (max-width: 768px) {
+      /* Zone d'intervention : décalée de 10px vers la droite sur mobile */
+      .carte__overlay { left: calc(26% + 10px - 16px); }
+    }
+
     /* =============================================
        PRINCIPES DE CONCEPTION
        ============================================= */
@@ -2080,6 +2085,92 @@
       <span class="side-nav__label">Faire connaissance</span>
     </a>
   </nav>
+
+  <!-- MENU ACCORDÉON MOBILE (visible ≤ 768px) -->
+  <style>
+    .mobile-nav { display: none; }
+    @media (max-width: 1024px) {
+      .mobile-nav {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: #0483c4;
+      }
+      .mobile-nav__toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 14px 20px;
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .mobile-nav__arrow { transition: transform 0.25s ease; }
+      .mobile-nav.open .mobile-nav__arrow { transform: rotate(180deg); }
+      .mobile-nav__list {
+        display: none;
+        flex-direction: column;
+        background: rgba(0,0,0,0.2);
+        padding: 4px 0;
+      }
+      .mobile-nav.open .mobile-nav__list { display: flex; }
+      .mobile-nav__link {
+        padding: 13px 20px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        border-top: 1px solid rgba(255,255,255,0.12);
+        transition: background 0.15s;
+      }
+      .mobile-nav__link:first-child { border-top: none; }
+      .mobile-nav__link:hover,
+      .mobile-nav__link:active { background: rgba(255,255,255,0.1); }
+    }
+  </style>
+  <nav class="mobile-nav" aria-label="Navigation mobile">
+    <button class="mobile-nav__toggle" aria-expanded="false" aria-controls="mobile-nav-list">
+      Sections
+      <svg class="mobile-nav__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 7.5L10 12.5L15 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="mobile-nav__list" id="mobile-nav-list">
+      <a class="mobile-nav__link" href="#mise-en-contexte">Mise en contexte</a>
+      <a class="mobile-nav__link" href="#opportunite">Opportunité de recherche</a>
+      <a class="mobile-nav__link" href="#demarche">Démarche de recherche</a>
+      <a class="mobile-nav__link" href="#insights">Insights et opportunité</a>
+      <a class="mobile-nav__link" href="#objectifs">Processus d'idéation</a>
+      <a class="mobile-nav__link" href="#solution">Solution</a>
+      <a class="mobile-nav__link" href="#benefices">Bénéfices de la solution</a>
+      <a class="mobile-nav__link" href="#ia">IA</a>
+      <a class="mobile-nav__link" href="#contact">Faire connaissance</a>
+    </div>
+  </nav>
+  <script>
+    (function() {
+      var nav = document.querySelector('.mobile-nav');
+      var btn = nav.querySelector('.mobile-nav__toggle');
+      btn.addEventListener('click', function() {
+        var isOpen = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+      nav.querySelectorAll('.mobile-nav__link').forEach(function(link) {
+        link.addEventListener('click', function() {
+          nav.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+  </script>
 
   <main>
 
