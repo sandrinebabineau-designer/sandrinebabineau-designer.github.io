@@ -81,7 +81,7 @@
       box-sizing: border-box;
     }
 
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
     body { max-width: 100%; overflow-x: hidden; }
 
     body {
@@ -1424,7 +1424,8 @@
       .principle { min-height: auto; }
 
       /* Benefits (1024px) */
-      .benefits-principles { grid-template-columns: repeat(2, 1fr); }
+      .benefits-principles { grid-template-columns: repeat(2, 1fr); overflow: hidden; }
+      .benefits-principles__check { top: 8px; right: 8px; }
 
       /* App screens */
       .app-screens { grid-template-columns: repeat(2, 1fr); }
@@ -1526,8 +1527,14 @@
       /* Benefits */
       .benefits { grid-template-columns: 1fr; }
       .benefit-card { min-height: auto; }
-      /* Tuiles : checkmarks repositionnés DANS la tuile sur mobile */
-      .benefits-principles { grid-template-columns: repeat(2, 1fr); }
+      /* Tuiles : cadre blanc clippe les coins arrondis des tuiles */
+      .benefits-principles {
+        grid-template-columns: repeat(2, 1fr);
+        overflow: hidden;
+        padding: 16px;
+        gap: 12px;
+      }
+      .benefits-principles__item { padding: 20px 16px; }
       .benefits-principles__check { top: 8px; right: 8px; }
 
       /* App */
@@ -1762,6 +1769,7 @@
   <style>
     .mobile-nav { display: none; }
     @media (max-width: 1024px) {
+      section[id] { scroll-margin-top: 56px; }
       .mobile-nav {
         display: block;
         position: sticky;

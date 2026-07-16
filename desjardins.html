@@ -2007,6 +2007,7 @@
   <style>
     .mobile-nav { display: none; }
     @media (max-width: 1024px) {
+      section[id] { scroll-margin-top: 56px; }
       .mobile-nav {
         display: block;
         position: sticky;
@@ -2171,7 +2172,7 @@
     <!-- ==========================================
          RECHERCHE PRÉLIMINAIRE
          ========================================== -->
-    <section class="section-recherche" aria-labelledby="recherche-title">
+    <section class="section-recherche" id="recherche-preliminaire" aria-labelledby="recherche-title">
       <div class="section__inner">
 
         <h2 class="recherche__title reveal" id="recherche-title">Recherche préliminaire</h2>
@@ -2207,7 +2208,7 @@
     <!-- ==========================================
          COMPRÉHENSION DE L'ÉCOSYSTÈME
          ========================================== -->
-    <section class="section-comprehension" id="recherche-preliminaire" aria-labelledby="comprehension-title">
+    <section class="section-comprehension" aria-labelledby="comprehension-title">
       <div class="section__inner">
 
         <h3 class="analyse__header reveal" id="comprehension-title">
