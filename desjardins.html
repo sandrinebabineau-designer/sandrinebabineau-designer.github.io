@@ -1904,8 +1904,9 @@
       .savoir__item { min-height: auto; }
       .savoir__title { font-size: 28px; }
       /* Centrer numéro + titre côte à côte */
-      .savoir__item-header { justify-content: center; align-items: center; }
-      .savoir__item-num { font-size: 24px; }
+      .savoir__item-header { flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+      .savoir__item-num { font-size: 28px; }
+      .savoir__item-title { text-align: center; }
       /* Bouton : pas de débordement */
       .savoir__cta { white-space: normal; text-align: center; }
 
