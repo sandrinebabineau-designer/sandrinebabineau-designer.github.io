@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
   <title>BODI — Sandrine Babineau</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1423,7 +1423,7 @@
       .principles { grid-template-columns: repeat(2, 1fr); }
       .principle { min-height: auto; }
 
-      /* Benefits */
+      /* Benefits (1024px) */
       .benefits-principles { grid-template-columns: repeat(2, 1fr); }
 
       /* App screens */
@@ -1507,8 +1507,9 @@
       .principles { grid-template-columns: repeat(2, 1fr); }
       .principle { min-height: auto; padding: 16px; }
 
-      /* Solutions table */
-      .solutions-table { font-size: 13px; }
+      /* Point 9 — Tableau solutions discartées : scroll horizontal */
+      .solutions-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .solutions-table { font-size: 13px; min-width: 560px; }
       .solutions-table th, .solutions-table td { padding: 8px 6px; }
       .solution-row__icon { width: 48px; height: 48px; }
       .solutions-table__col-th { font-size: 13px; padding: 10px 6px; }
@@ -1525,7 +1526,13 @@
       /* Benefits */
       .benefits { grid-template-columns: 1fr; }
       .benefit-card { min-height: auto; }
-      .benefits-principles { grid-template-columns: repeat(2, 1fr); }
+      /* Point 8 — Tuiles : checkmarks visibles (pas coupés sur le côté droit) */
+      .benefits-principles {
+        grid-template-columns: repeat(2, 1fr);
+        overflow: visible;
+        margin-top: 8px;
+        margin-right: 8px;
+      }
 
       /* App */
       .app-screens { grid-template-columns: repeat(2, 1fr); gap: 16px; }
